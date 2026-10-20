@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-cms="site_meta_title">مطعم ومشويات السرايا جريل | تجربة المشويات الملكية الفاخرة</title>
+  <meta name="description" content="مطعم ومشويات السرايا جريل - أرقى تجارب الطهي والشواء الملكي في المملكة، لحوم معتقة، أطباق عالمية وأجواء فاخرة تناسب النخبة.">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="main-header" id="mainHeader">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-wrapper">
+        <div class="logo-icon">
+          <i class="fa-solid fa-crown"></i>
+        </div>
+        <div class="logo-text">
+          <h2 data-cms="brand_name">السرايا <span>جريل</span></h2>
+          <p data-cms="brand_sub">SARAYA LUXURY GRILL</p>
+        </div>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link active">الرئيسية</a>
+        <a href="menu.html" class="nav-link">قائمة الطعام</a>
+        <a href="reservation.html" class="nav-link">حجز طاولة</a>
+        <a href="about.html" class="nav-link">قصتنا</a>
+        <a href="contact.html" class="nav-link">اتصل بنا</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="cart-toggle-btn" onclick="SarayaApp.toggleCartDrawer(true)" title="سلة الطلبات">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+
+        <a href="reservation.html" class="btn-luxury" style="padding: 10px 20px; font-size: 0.9rem;">
+          <i class="fa-solid fa-calendar-check"></i> حجز طاولة
+        </a>
+
+        <div class="mobile-menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SLIDER ==================== -->
+  <section class="hero-slider-section" id="hero">
+    <div class="swiper hero-swiper">
+      <div class="swiper-wrapper">
+
+        <!-- Slide 1 -->
+        <div class="swiper-slide hero-slide" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1920&q=85');">
+          <div class="container">
+            <div class="hero-slide-content">
+              <div class="hero-badge-tag">
+                <i class="fa-solid fa-award"></i>
+                <span data-cms="hero_badge_1">تجربة طهي استثنائية &bull; نكهات لا تُنسى</span>
+              </div>
+              <h1 class="hero-title" data-cms="hero_title_1">
+                إبداع الطهي الرفيع <em>بلمسة ملكية ساحرة</em>
+              </h1>
+              <p class="hero-subtitle" data-cms="hero_sub_1">
+                نأخذكم في رحلة ذوقية فريدة تجمع بين أصالة المذاق وفنون الطهي المعاصر، حيث تُحضر أطباق اللحوم المعتقة على أيدي نخبة من أمهر الطهاة.
+              </p>
+              <div class="hero-cta-group">
+                <a href="#reservation" class="btn-luxury">
+                  <i class="fa-solid fa-calendar-check"></i> حجز طاولة خاصة
+                </a>
+                <a href="menu.html" class="btn-gold-outline">
+                  <i class="fa-solid fa-book-open"></i> استكشف قائمة الطعام
+                </a>
+              </div>
+              <div class="hero-features-strip">
+                <div class="hero-feature-item">
+                  <div class="icon-circle"><i class="fa-solid fa-fire-burner"></i></div>
+                  <div>
+                    <div class="feature-title">طهي بفرن الحطب</div>
+                    <div class="feature-desc">نكهة تدخين فريدة وطازجة</div>
+                  </div>
+                </div>
+                <div class="hero-feature-item">
+                  <div class="icon-circle"><i class="fa-solid fa-leaf"></i></div>
+                  <div>
+                    <div class="feature-title">مكونات عضوية 100%</div>
+                    <div class="feature-desc">منتقاة يومياً من أفضل المزارع</div>
+                  </div>
+                </div>
+                <div class="hero-feature-item">
+                  <div class="icon-circle"><i class="fa-solid fa-wine-glass"></i></div>
+                  <div>
+                    <div class="feature-title">أجواء راقية وهادئة</div>
+                    <div class="feature-desc">موسيقى هادئة وخدمة كونسيرج</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide hero-slide" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=85');">
+          <div class="container">
+            <div class="hero-slide-content">
+              <div class="hero-badge-tag">
+                <i class="fa-solid fa-champagne-glasses"></i>
+                <span data-cms="hero_badge_2">ضيافة فاخرة &bull; مناسبات واحتفالات VIP</span>
+              </div>
+              <h1 class="hero-title" data-cms="hero_title_2">
+                أجواء تنبض بالفخامة <em>لأعز اللحظات</em>
+              </h1>
+              <p class="hero-subtitle" data-cms="hero_sub_2">
+                سواء كنتم تحتفلون بمناسبة سنوية خاصة أو تخططون لعشاء عمل تنفيذي راقٍ، نوفر لكم أجنحة ضيافة ملكية مع خدمة كونسيرج شخصية متكاملة.
+              </p>
+              <div class="hero-cta-group">
+                <a href="#vip" class="btn-luxury">
+                  <i class="fa-solid fa-crown"></i> استكشف باقات VIP
+                </a>
+                <a href="reservation.html" class="btn-gold-outline">
+                  <i class="fa-solid fa-door-open"></i> حجز جناح خاص
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide hero-slide" style="background-image: url('https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1920&q=85');">
+          <div class="container">
+            <div class="hero-slide-content">
+              <div class="hero-badge-tag">
+                <i class="fa-solid fa-utensils"></i>
+                <span data-cms="hero_badge_3">فنون الطهي العالمية &bull; لحوم واغيو معتقة</span>
+              </div>
+              <h1 class="hero-title" data-cms="hero_title_3">
+                تناغم النكهات <em>وفنون التقديم الراقية</em>
+              </h1>
+              <p class="hero-subtitle" data-cms="hero_sub_3">
+                تذوقوا أطباق الريب آي والستيك الياباني A5 المشوي على الحطب والمبهر بأندر خلطات الأعشاب الطبيعية ولمسات الذهب القابلة للأكل.
+              </p>
+              <div class="hero-cta-group">
+                <a href="menu.html" class="btn-luxury">
+                  <i class="fa-solid fa-drumstick-bite"></i> تصفح المشويات
+                </a>
+                <a href="#reservation" class="btn-gold-outline">
+                  <i class="fa-solid fa-phone"></i> تواصل مع الشيف
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="hero-pagination swiper-pagination"></div>
+    </div>
+  </section>
+
+  <!-- ==================== STORY / ABOUT SECTION ==================== -->
+  <section class="section-padding story-section" id="story">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-image-box">
+          <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=800&q=80" alt="شيف المطعم" class="story-image-main" data-cms-src="story_img">
+          <div class="story-badge-card">
+            <div class="badge-icon"><i class="fa-solid fa-medal"></i></div>
+            <div>
+              <h4 data-cms="story_exp_num">15+ عاماً</h4>
+              <p data-cms="story_exp_text">من التميز في عالم الطهي الفاخر</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-content">
+          <div class="section-badge">
+            <i class="fa-solid fa-gem"></i> قصتنا وهويتنا
+          </div>
+          <h2 class="section-title" data-cms="story_title">
+            فن الشواء الأصيل <span>بلذة لا تُضاهى</span>
+          </h2>
+          <p data-cms="story_text_1">
+            انطلقت مسيرة مطعم السرايا جريل من شغف عميق بتقديم أرقى مأكولات الشواء المعتقة بأسلوب فاخر يجمع بين دفء الضيافة العربية وفنون الطهي العالمية الحديثة.
+          </p>
+          <p data-cms="story_text_2">
+            نحرص على استيراد أفخر أنواع لحوم الواغيو والبلاك أنجوس المعتقة لمدة تتجاوز 45 يوماً، لنضمن لكل ضيف تجربة نكهات ثرية وطراوة لا مثيل لها تذوب في الفم مع كل لقمة.
+          </p>
+
+          <div class="story-features">
+            <div class="story-feature">
+              <i class="fa-solid fa-shield-halved"></i>
+              <div>
+                <h5>أعلى معايير الجودة</h5>
+                <p>مكونات عضوية ولحوم طازجة معتمدة 100%</p>
+              </div>
+            </div>
+            <div class="story-feature">
+              <i class="fa-solid fa-utensils"></i>
+              <div>
+                <h5>إشراف طهاة عالميين</h5>
+                <p>وصفات طهي مبتكرة وبلمسات عصرية مذهلة</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="about.html" class="btn-gold-outline">
+            <i class="fa-solid fa-arrow-left"></i> اقرأ المزيد عن قصتنا
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SIGNATURE SPECIALS ==================== -->
+  <section class="section-padding specials-section" id="specials">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">
+          <i class="fa-solid fa-crown"></i> توقيع الشيف الملكي
+        </div>
+        <h2 class="section-title">
+          المختارات <span>الملكية الخاصة</span>
+        </h2>
+        <p class="section-desc">
+          أطباق حصرية أعدت خصيصاً لضيوفنا المميزين، تجمع بين أجود قطع اللحوم والمأكولات البحرية الفاخرة.
+        </p>
+      </div>
+
+      <div class="specials-grid" id="specialsGrid">
+        <!-- Rendered dynamically by restaurant.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GOURMET MENU TABS ==================== -->
+  <section class="section-padding menu-section" id="menu">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">
+          <i class="fa-solid fa-book-open"></i> قائمة الطعام المتنوعة
+        </div>
+        <h2 class="section-title">
+          استكشف <span>قائمة الولائم الملكية</span>
+        </h2>
+        <p class="section-desc">
+          تذوق أشهى الأصناف المعدة بأعلى معايير الجودة العالمية، مقسمة حسب تفضيلاتكم لتجربة طعام متكاملة من المقبلات وحتى التحليات.
+        </p>
+      </div>
+
+      <div class="menu-tabs-wrapper">
+        <button class="menu-tab-btn active" data-target="tab-mains">
+          <i class="fa-solid fa-drumstick-bite"></i> الأطباق الرئيسية والستيك
+        </button>
+        <button class="menu-tab-btn" data-target="tab-appetizers">
+          <i class="fa-solid fa-bowl-rice"></i> المقبلات والشوربات الفاخرة
+        </button>
+        <button class="menu-tab-btn" data-target="tab-pizza">
+          <i class="fa-solid fa-pizza-slice"></i> البيتزا والباستا الإيطالية
+        </button>
+        <button class="menu-tab-btn" data-target="tab-desserts">
+          <i class="fa-solid fa-cake-candles"></i> الحلويات والمشروبات المنعشة
+        </button>
+      </div>
+
+      <div id="menuTabsContent">
+        <!-- Rendered dynamically by restaurant.js -->
+      </div>
+
+      <div class="menu-footer-cta">
+        <a href="menu.html" class="btn-luxury" style="padding: 16px 36px;">
+          <i class="fa-solid fa-utensils"></i> استعراض القائمة الكاملة مع إمكانية الفرز والطلب
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== VIP PACKAGES SECTION ==================== -->
+  <section class="vip-banner-section" id="vip">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge" style="background: rgba(212, 175, 55, 0.2);">
+          <i class="fa-solid fa-champagne-glasses"></i> تجارب خاصة واستثنائية
+        </div>
+        <h2 class="section-title">
+          باقات الضيافة <span>الملكية VIP</span>
+        </h2>
+        <p class="section-desc">
+          صممنا باقاتنا الخاصة لتلائم اجتماعات كبار الشخصيات والاحتفالات العائلية واللحظات الرومانسية الدافئة.
+        </p>
+      </div>
+
+      <div class="vip-tabs-nav">
+        <button class="vip-tab-btn active" data-pkg="royal">
+          <i class="fa-solid fa-gem"></i>
+          <span>الأمسية الملكية</span>
+          <small>الأكثر طلباً</small>
+        </button>
+        <button class="vip-tab-btn" data-pkg="business">
+          <i class="fa-solid fa-briefcase"></i>
+          <span>عشاء الأعمال</span>
+          <small>خصوصية تامة</small>
+        </button>
+        <button class="vip-tab-btn" data-pkg="romantic">
+          <i class="fa-solid fa-heart"></i>
+          <span>أمسية رومانسية</span>
+          <small>طاولة لشخصين</small>
+        </button>
+      </div>
+
+      <div class="vip-card-display">
+        <div class="vip-card-header">
+          <div class="vip-price-box">
+            <span class="vip-price-num" id="vipPriceNum">1,850</span>
+            <span class="vip-price-currency">ر.س</span>
+            <span class="vip-price-period" id="vipPricePeriod">/ مناسبة كاملة</span>
+          </div>
+          <div class="vip-capacity-badge" id="vipCapacityBadge">
+            <i class="fa-solid fa-users"></i> حتى 10 ضيوف
+          </div>
+        </div>
+
+        <p class="vip-pkg-desc" id="vipPkgDesc">
+          تجربة فاخرة لا تُنسى في الجناح الملكي الخاص مع طاهٍ مكرس وقائمة طعام متكاملة من 7 أطباق راقية تتضمن الواغيو A5 والكمأة السوداء.
+        </p>
+
+        <ul class="vip-features-list" id="vipFeaturesList">
+          <li><i class="fa-solid fa-check"></i> طاهٍ شخصي ومساعد مكرسون لطاولتكم طوال الأمسية</li>
+          <li><i class="fa-solid fa-check"></i> قائمة تذوق حصرية من 7 أطباق (لحم الواغيو والكمأة الطازجة)</li>
+          <li><i class="fa-solid fa-check"></i> مشروبات ترحيبية ومقبلات كانابيه ملكية عند الاستقبال</li>
+          <li><i class="fa-solid fa-check"></i> خدمة كونسيرج خاصة وصف سيارات VIP مجاني لجميع الضيوف</li>
+        </ul>
+
+        <div class="vip-actions">
+          <a href="#" class="btn-luxury" id="vipBookBtn">
+            <i class="fa-solid fa-calendar-check"></i> اختيار هذه الباقة والحجز
+          </a>
+          <a href="#" class="btn-gold-outline" id="vipWaBtn" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> استفسار مباشر عبر واتساب
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RESERVATION FORM ==================== -->
+  <section class="section-padding reservation-section" id="reservation">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">
+          <i class="fa-solid fa-clock"></i> حجز مسبق ومريح
+        </div>
+        <h2 class="section-title">
+          احجز طاولتك <span>أونلاين بكل سهولة</span>
+        </h2>
+        <p class="section-desc">
+          اختر الموعد المفضل وعدد الضيوف، وسيقوم فريق الاستقبال لدينا بتأكيد حجزكم فوراً وإرسال إشعار التأكيد عبر واتساب.
+        </p>
+      </div>
+
+      <div class="reservation-grid">
+        <div class="reservation-card">
+          <form id="reservationForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">الاسم الكامل *</label>
+                <input type="text" id="resName" class="form-control" placeholder="مثال: فهد القحطاني" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">رقم الجوال (واتساب) *</label>
+                <input type="tel" id="resPhone" class="form-control" placeholder="+966 5x xxx xxxx" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">عدد الضيوف *</label>
+                <select id="resGuests" class="form-control">
+                  <option value="1">شخص واحد</option>
+                  <option value="2" selected>شخصان (طاولة خاصة)</option>
+                  <option value="3">3 أشخاص</option>
+                  <option value="4">4 أشخاص</option>
+                  <option value="5">5 أشخاص</option>
+                  <option value="6">6 أشخاص (عائلية)</option>
+                  <option value="8">8 أشخاص (جناح خاص)</option>
+                  <option value="10+">10 أشخاص فأكثر (حفل/وفد)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">تاريخ الحجز *</label>
+                <input type="date" id="resDate" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">الوقت المفضل *</label>
+                <select id="resTime" class="form-control">
+                  <option value="1:30 PM">1:30 بعد الظهر (غداء)</option>
+                  <option value="2:30 PM">2:30 بعد الظهر (غداء)</option>
+                  <option value="4:00 PM">4:00 عصراً</option>
+                  <option value="7:00 PM">7:00 مساءً (عشاء مبكر)</option>
+                  <option value="8:30 PM" selected>8:30 مساءً (عشاء الذروة)</option>
+                  <option value="10:00 PM">10:00 مساءً</option>
+                  <option value="11:30 PM">11:30 مساءً</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">منطقة الجلوس المفضلة</label>
+                <select id="resZone" class="form-control">
+                  <option value="main">الصالة الملكية الرئيسية</option>
+                  <option value="terrace">الشرفة الخارجية المطلة (تراس)</option>
+                  <option value="vip">الجناح الملكي الخاص VIP</option>
+                  <option value="romantic">طاولة رومانسية هادئة</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">ملاحظات أو مناسبة خاصة (اختياري)</label>
+              <textarea id="resNotes" class="form-control" rows="3" placeholder="ذكرى زواج، اجتماع عمل، حساسية من مكونات معينة..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-luxury" style="width: 100%; padding: 16px; font-size: 1.1rem;">
+              <i class="fa-solid fa-paper-plane"></i> تأكيد الحجز وإرسال عبر واتساب
+            </button>
+          </form>
+        </div>
+
+        <div class="reservation-info-card">
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-clock"></i></div>
+            <div class="info-content">
+              <h4>ساعات العمل اليومية</h4>
+              <p class="rest-hours">يومياً من الساعة 1:00 ظهراً وحتى 2:00 بعد منتصف الليل</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="info-content">
+              <h4>موقعنا المتميز</h4>
+              <p class="rest-address">طريق الملك فهد، حي الصحافة، الرياض، المملكة العربية السعودية</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+            <div class="info-content">
+              <h4>خدمة العملاء والكونسيرج</h4>
+              <p>للاستفسارات العاجلة: <strong class="rest-phone">+966 50 123 4567</strong></p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-circle-info"></i></div>
+            <div class="info-content">
+              <h4>سياسة الحجز المسبق</h4>
+              <p>يتم تثبيت الحجز لمدة 15 دقيقة بعد الموعد المحدد. يُفضل الحجز قبل 24 ساعة للأجنحة الملكية.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIALS ==================== -->
+  <section class="section-padding testimonials-section" id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">
+          <i class="fa-solid fa-comments"></i> شهادات ضيوفنا
+        </div>
+        <h2 class="section-title">
+          ماذا يقول <span>ضيوفنا المتميزون؟</span>
+        </h2>
+        <p class="section-desc">
+          نفخر بثقة نخبة ضيوفنا الكرام الذين شاركونا تجاربهم الفريدة في مطعم السرايا جريل.
+        </p>
+      </div>
+
+      <div class="swiper reviews-swiper">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div>
+                <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
+                <div class="testimonial-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                  "من أفضل تجارب الفاين دايننج في الرياض دون مبالغة! ستيك الواغيو كان بمستوى استثنائي، والخدمة من لحظة دخولنا تشعرك وكأنك ضيف شرف في قصر ملكي."
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="د. خالد العتيبي" class="author-avatar">
+                <div>
+                  <div class="author-name">د. خالد العتيبي</div>
+                  <div class="author-role">ناقد طعام وتذوق</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div>
+                <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
+                <div class="testimonial-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                  "احتفلنا بذكرى زواجنا في الجناح الخاص، كانت الترتيبات مذهلة والورود والإضاءة منتهى الرقي. الباستا بالكمأة وفوندان الشوكولاتة خيالية بكل معنى الكلمة!"
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="سارة الشمري" class="author-avatar">
+                <div>
+                  <div class="author-name">سارة الشمري</div>
+                  <div class="author-role">مصممة ديكور</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div>
+                <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
+                <div class="testimonial-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                  "عقدنا اجتماع عمل مع وفد استثماري في قاعة الأعمال، الخصوصية كانت تامة وتجهيزات العرض ممتازة ووجبة الغداء نالت إعجاب الجميع بلا استثناء."
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="م. سلطان الدوسري" class="author-avatar">
+                <div>
+                  <div class="author-name">م. سلطان الدوسري</div>
+                  <div class="author-role">رئيس تنفيذي</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="reviews-pagination swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GALLERY ==================== -->
+  <section class="gallery-section">
+    <div class="container">
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" alt="ستيك واغيو"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" alt="مشاوي ريش"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt="بيتزا ترفل"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80" alt="سلمون مشوي"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" alt="برجر أنجوس"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80" alt="حلى فوندان"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo-wrapper" style="margin-bottom: 20px;">
+            <div class="logo-icon"><i class="fa-solid fa-crown"></i></div>
+            <div class="logo-text">
+              <h2>السرايا <span>جريل</span></h2>
+              <p>SARAYA LUXURY GRILL</p>
+            </div>
+          </div>
+          <p class="footer-desc" data-cms="footer_desc">
+            مطعم ومشويات السرايا جريل، الوجهة الأولى في المملكة لعشاق المشويات المعتقة الفاخرة، حيث تلتقي أصالة النكهة بفخامة الضيافة الملكية في أجواء ساحرة.
+          </p>
+          <div class="footer-social">
+            <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-btn"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" class="social-btn"><i class="fa-brands fa-snapchat"></i></a>
+            <a href="#" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>روابط سريعة</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-left"></i> الرئيسية</a></li>
+            <li><a href="menu.html"><i class="fa-solid fa-chevron-left"></i> قائمة الطعام الملكية</a></li>
+            <li><a href="reservation.html"><i class="fa-solid fa-chevron-left"></i> حجز طاولة خاصة</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-left"></i> قصتنا وهويتنا</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-chevron-left"></i> اتصل بنا وموقعنا</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>السياسات والشروط</h4>
+          <ul class="footer-links">
+            <li><a href="terms.html"><i class="fa-solid fa-chevron-left"></i> شروط الخدمة والزيارة</a></li>
+            <li><a href="privacy.html"><i class="fa-solid fa-chevron-left"></i> سياسة الخصوصية</a></li>
+            <li><a href="reservation.html#rules"><i class="fa-solid fa-chevron-left"></i> سياسة إلغاء الحجز</a></li>
+            <li><a href="admin/index.html"><i class="fa-solid fa-lock"></i> لوحة التحكم (المدير)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>معلومات التواصل</h4>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span class="rest-address">طريق الملك فهد، حي الصحافة، الرياض، المملكة العربية السعودية</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span class="rest-phone">+966 50 123 4567</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="rest-whatsapp">+966 50 123 4567</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>info@saraya-grill.com</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-clock"></i>
+            <span class="rest-hours">يومياً: 1:00 م - 2:00 ص</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 مطعم ومشويات السرايا جريل. جميع الحقوق محفوظة.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">الخصوصية</a>
+          <a href="terms.html">الشروط والأحكام</a>
+          <a href="admin/index.html"><i class="fa-solid fa-sliders"></i> الدخول للوحة التحكم</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CART DRAWER ==================== -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay" onclick="SarayaApp.toggleCartDrawer(false)"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <h3><i class="fa-solid fa-bag-shopping"></i> قائمة طلبك الحالي</h3>
+      <button class="cart-drawer-close" onclick="SarayaApp.toggleCartDrawer(false)">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="cart-drawer-body" id="cartDrawerBody">
+      <!-- Injected by restaurant.js -->
+    </div>
+    <div class="cart-drawer-footer">
+      <div class="cart-total-row">
+        <span>المجموع الإجمالي:</span>
+        <span class="cart-total-num" id="cartTotalNum">0 ر.س</span>
+      </div>
+      <button class="btn-luxury" style="width: 100%;" onclick="SarayaApp.checkoutWhatsApp()">
+        <i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر واتساب للتجهيز
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== DISH DETAIL MODAL ==================== -->
+  <div class="dish-modal-overlay" id="dishModalOverlay">
+    <div class="dish-modal-box">
+      <button class="dish-modal-close" onclick="SarayaApp.closeDishModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <img id="dishModalImg" src="" alt="" class="dish-modal-img">
+      <div class="dish-modal-body">
+        <div class="dish-modal-top">
+          <h3 id="dishModalTitle" style="font-size:1.5rem;">اسم الصنف</h3>
+          <div class="dish-modal-price" id="dishModalPrice">0 ر.س</div>
+        </div>
+        <p class="dish-modal-desc" id="dishModalDesc">وصف الصنف الكامل ومكوناته ومواصفاته الفاخرة.</p>
+        <button class="btn-luxury" id="dishModalAddBtn" style="width:100%;">
+          <i class="fa-solid fa-plus"></i> إضافة إلى الطلب الآن
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="js/restaurant.js"></script>
+</body>
+</html>

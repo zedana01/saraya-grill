@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سياسة الخصوصية | مطعم ومشويات السرايا جريل</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero {
+      padding: 140px 0 60px;
+      background: linear-gradient(rgba(12, 9, 10, 0.9), rgba(12, 9, 10, 0.9)),
+                  url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1920&q=80') center/cover;
+      text-align: center;
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .legal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-lg);
+      padding: 50px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .legal-content h3 {
+      font-size: 1.4rem;
+      color: var(--gold-accent);
+      margin: 30px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .legal-content h3:first-child { margin-top: 0; }
+    .legal-content p, .legal-content li {
+      color: var(--text-body);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .legal-content ul {
+      padding-right: 25px;
+      list-style-type: disc;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="main-header" id="mainHeader">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-wrapper">
+        <div class="logo-icon"><i class="fa-solid fa-crown"></i></div>
+        <div class="logo-text">
+          <h2>السرايا <span>جريل</span></h2>
+          <p>SARAYA LUXURY GRILL</p>
+        </div>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="menu.html" class="nav-link">قائمة الطعام</a>
+        <a href="reservation.html" class="nav-link">حجز طاولة</a>
+        <a href="about.html" class="nav-link">قصتنا</a>
+        <a href="contact.html" class="nav-link">اتصل بنا</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="cart-toggle-btn" onclick="SarayaApp.toggleCartDrawer(true)" title="سلة الطلبات">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+
+        <a href="reservation.html" class="btn-luxury" style="padding: 10px 20px; font-size: 0.9rem;">
+          <i class="fa-solid fa-calendar-check"></i> حجز طاولة
+        </a>
+
+        <div class="mobile-menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="section-badge"><i class="fa-solid fa-shield-halved"></i> حماية وأمان البيانات</div>
+      <h1 class="section-title">سياسة <span>الخصوصية وسرية المعلومات</span></h1>
+      <p class="section-desc">التزامنا بحماية بيانات ضيوفنا الشخصية وخصوصيتهم الكاملة.</p>
+    </div>
+  </section>
+
+  <!-- ==================== CONTENT ==================== -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="legal-content">
+        <h3><i class="fa-solid fa-user-shield"></i> 1. البيانات التي نجمعها</h3>
+        <p>عند استخدامكم لنموذج حجز الطاولة أو الاتصال بنا، نقوم بجمع معلومات الاتصال الأساسية مثل الاسم، رقم الهاتف، والبريد الإلكتروني وتفاصيل الحجز، وذلك حصرياً لغرض تأكيد الحجز وتقديم الخدمة المطلوبة.</p>
+
+        <h3><i class="fa-solid fa-lock"></i> 2. سرية واستخدام البيانات</h3>
+        <ul>
+          <li>لا نقوم ببيع، تأجير، أو مشاركة بيانات ضيوفنا مع أي أطراف ثالثة لأغراض دعائية على الإطلاق.</li>
+          <li>تُستخدم بياناتكم فقط للتواصل بشأن حجزكم أو إرسال تفاصيل المناسبات والعروض الخاصة بناءً على موافقتكم المسبقة.</li>
+          <li>نلتزم بأنظمة حماية البيانات الشخصية الصادرة في المملكة العربية السعودية.</li>
+        </ul>
+
+        <h3><i class="fa-solid fa-cookie-bite"></i> 3. ملفات تعريف الارتباط والذاكرة المحلية</h3>
+        <p>يستخدم موقعنا تقنيات التخزين المحلي الآمنة (Local Storage) لحفظ تفضيلات التصفح وسلة الطلبات الخاصة بك لتسهيل تجربتكم عند تكرار الزيارة دون تتبع شخصي غير مصرح به.</p>
+
+        <h3><i class="fa-solid fa-phone"></i> 4. الاتصال بنا</h3>
+        <p>إذا كانت لديكم أي استفسارات أو رغبة في تعديل أو حذف بياناتكم من سجلاتنا، يرجى مراسلتنا عبر البريد الإلكتروني: <strong style="color:var(--gold-accent);">info@saraya-grill.com</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none; padding-top:0;">
+        <p>&copy; 2026 مطعم ومشويات السرايا جريل. جميع الحقوق محفوظة.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">الخصوصية</a>
+          <a href="terms.html">الشروط والأحكام</a>
+          <a href="admin/index.html">لوحة التحكم</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/restaurant.js"></script>
+</body>
+</html>

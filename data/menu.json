@@ -1,0 +1,413 @@
+{
+  "restaurant": {
+    "name": "مطعم ومشويات السرايا جريل",
+    "short_name": "السرايا جريل",
+    "slogan": "فن الشواء الأصيل وفخامة الضيافة الملكية",
+    "phone": "+966 50 123 4567",
+    "whatsapp": "+966501234567",
+    "email": "info@saraya-grill.com",
+    "address": "طريق الملك فهد، حي الصحافة، الرياض، المملكة العربية السعودية",
+    "currency": "ر.س",
+    "working_hours": "يومياً من الساعة 1:00 ظهراً وحتى 2:00 بعد منتصف الليل",
+    "reservation_note": "يُفضل الحجز المسبق للأمسيات الملكية وخلال عطلة نهاية الأسبوع"
+  },
+  "dishes": [
+    {
+      "id": "dish_1",
+      "name": "ستيك ريب آي واغيو A5 معتق",
+      "category": "specials",
+      "categoryName": "المختارات الملكية الخاصة",
+      "tag": "الأعلى طلباً",
+      "rating": "4.9 (180+ تقييم)",
+      "price": 280.0,
+      "currency": "ر.س",
+      "desc": "شريحة ريب آي معتقة لمدة 45 يوماً، مشوية على الفحم الطبيعي مع زبدة الأعشاب البرية، مهروس البطاطس بالكمأة وصلصة الفلفل الأسود الفرنسية.",
+      "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&amp;fit=crop&amp;w=700&amp;q=80",
+      "is_special": true
+    },
+    {
+      "id": "dish_2",
+      "name": "موزة الضأن الملكية بصلصة الروزماري",
+      "category": "specials",
+      "categoryName": "المختارات الملكية الخاصة",
+      "tag": "توقيع الشيف",
+      "rating": "5.0 (210+ تقييم)",
+      "price": 210.0,
+      "currency": "ر.س",
+      "desc": "مطهوة ببطء لمدة 8 ساعات حتى تذوب النكهات، تُقدم مع أرز بسمتي بالزعفران العطري والمكسرات المحمصة مع صلصة عصير اللحم الطبيعية.",
+      "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&amp;fit=crop&amp;w=700&amp;q=80",
+      "is_special": true
+    },
+    {
+      "id": "dish_3",
+      "name": "بيتزا الترفل الأسود والموزاريلا الطازجة",
+      "category": "specials",
+      "categoryName": "المختارات الملكية الخاصة",
+      "tag": "فرن الحطب",
+      "rating": "4.8 (145+ تقييم)",
+      "price": 145.0,
+      "currency": "ر.س",
+      "desc": "عجينة مخمرة طبيعياً لمدة 72 ساعة، جبنة موزاريلا دي بوفالا، شرائح الكمأة الإيطالية الطازجة، وزيت الزيتون البكر الممتاز المعصور على البارد.",
+      "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&amp;fit=crop&amp;w=700&amp;q=80",
+      "is_special": true
+    },
+    {
+      "id": "dish_4",
+      "name": "فيليه السلمون النرويجي مع صلصة الليمون",
+      "category": "specials",
+      "categoryName": "المختارات الملكية الخاصة",
+      "tag": "مأكولات بحرية",
+      "rating": "4.9 (120+ تقييم)",
+      "price": 195.0,
+      "currency": "ر.س",
+      "desc": "قطعة سلمون مشوية بعناية فائقة مقرمشة من الخارج وطرية من الداخل، تقدم مع الهليون الأخضر وصوص الكريمة الخفيفة بالليمون والكبر.",
+      "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&amp;fit=crop&amp;w=700&amp;q=80",
+      "is_special": true
+    },
+    {
+      "id": "dish_5",
+      "name": "برجر الأنجوس الفاخر مع جبن الغرويير",
+      "category": "specials",
+      "categoryName": "المختارات الملكية الخاصة",
+      "tag": "برجر فاخر",
+      "rating": "4.8 (260+ تقييم)",
+      "price": 98.0,
+      "currency": "ر.س",
+      "desc": "لحم أنجوس معتق مفروم يدوياً، بصل مكرمل بالبلسميك، جبنة غرويير سويسرية ذائبة، في خبز بريوش طازج محضر يومياً في مخبزنا.",
+      "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&amp;fit=crop&amp;w=700&amp;q=80",
+      "is_special": true
+    },
+    {
+      "id": "dish_6",
+      "name": "فوندان الشوكولاتة البلجيكية بلمسة الذهب",
+      "category": "specials",
+      "categoryName": "المختارات الملكية الخاصة",
+      "tag": "حلوى استثنائية",
+      "rating": "5.0 (310+ تقييم)",
+      "price": 75.0,
+      "currency": "ر.س",
+      "desc": "كعكة الشوكولاتة الساخنة مع قلب سائل غني، مزينة برقائق الذهب عيار 24 الصالحة للأكل، وتُقدم مع آيس كريم الفانيليا الطبيعية من مدغشقر.",
+      "image": "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&amp;fit=crop&amp;w=700&amp;q=80",
+      "is_special": true
+    },
+    {
+      "id": "dish_7",
+      "name": "تندرلوين بلاك أنجوس بصلصة الموريل",
+      "category": "mains",
+      "categoryName": "الأطباق الرئيسية والستيك",
+      "tag": "",
+      "rating": "4.9",
+      "price": 235.0,
+      "currency": "ر.س",
+      "desc": "قطعة فيليه طرية مشوية مع فطر الموريل البري وبطاطس جراتان الكلاسيكية.",
+      "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_8",
+      "name": "ريش الضأن النيوزيلندي بالأعشاب العطرية",
+      "category": "mains",
+      "categoryName": "الأطباق الرئيسية والستيك",
+      "tag": "",
+      "rating": "4.9",
+      "price": 190.0,
+      "currency": "ر.س",
+      "desc": "مشوية مع قشرة الخردل والزعتر البري مع خضار سوتيه وصلصة النعناع الطازج.",
+      "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_9",
+      "name": "سمك السي باس التشيلي المقلي بزيت الزيتون",
+      "category": "mains",
+      "categoryName": "الأطباق الرئيسية والستيك",
+      "tag": "",
+      "rating": "4.9",
+      "price": 220.0,
+      "currency": "ر.س",
+      "desc": "فيليه السي باس مع بيوريه البازلاء والنعناع ورذاذ الليمون والزعفران الملكي.",
+      "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_10",
+      "name": "صدور دجاج الذرة العضوي بصلصة الكمأة",
+      "category": "mains",
+      "categoryName": "الأطباق الرئيسية والستيك",
+      "tag": "",
+      "rating": "4.9",
+      "price": 125.0,
+      "currency": "ر.س",
+      "desc": "دجاج طري مطهو بأسلوب السوفيد مع البطاطس المهروسة وصلصة الكريمة بالكمأة.",
+      "image": "https://images.unsplash.com/photo-1588168333986-5078d3ae3976?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_11",
+      "name": "مشويات مشكلة ملكية (Royal Mixed Grill)",
+      "category": "mains",
+      "categoryName": "الأطباق الرئيسية والستيك",
+      "tag": "",
+      "rating": "4.9",
+      "price": 175.0,
+      "currency": "ر.س",
+      "desc": "توليفة من كباب اللحم، شيش طاووق، وريش مشوية على الفحم مع خبز البيواز والبصل المشوي.",
+      "image": "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_12",
+      "name": "روبيان جامبو مشوي بصلصة الثوم والأعشاب",
+      "category": "mains",
+      "categoryName": "الأطباق الرئيسية والستيك",
+      "tag": "",
+      "rating": "4.9",
+      "price": 185.0,
+      "currency": "ر.س",
+      "desc": "روبيان بحري طازج مشوي مع صلصة الزبدة والليمون والثوم المعمر.",
+      "image": "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_13",
+      "name": "سلطة البوراتا الإيطالية مع الطماطم العضوية",
+      "category": "appetizers",
+      "categoryName": "المقبلات والشوربات الفاخرة",
+      "tag": "",
+      "rating": "4.9",
+      "price": 85.0,
+      "currency": "ر.س",
+      "desc": "جبنة بوراتا طازجة مع طماطم كرزية مجففة، صنوبر محمص وخل البلسميك المعتق.",
+      "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_14",
+      "name": "شوربة الفطر البري الكريمية بزيت الترفل",
+      "category": "appetizers",
+      "categoryName": "المقبلات والشوربات الفاخرة",
+      "tag": "",
+      "rating": "4.9",
+      "price": 60.0,
+      "currency": "ر.س",
+      "desc": "مزيج من الفطر البورشيني والشيتاكي مع الكريمة الطازجة وخبز البريوش المحمص.",
+      "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_15",
+      "name": "شوربة القرع العسلي المحمص بالقرفة",
+      "category": "appetizers",
+      "categoryName": "المقبلات والشوربات الفاخرة",
+      "tag": "",
+      "rating": "4.9",
+      "price": 55.0,
+      "currency": "ر.س",
+      "desc": "شوربة مخملية ناعمة مع بذور القرع المحمصة وقطرات من زيت اليقطين العطري.",
+      "image": "https://images.unsplash.com/photo-1541544741938-0af808871cc0?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_16",
+      "name": "سلطة الكينوا العضوية مع الأفوكادو والرمان",
+      "category": "appetizers",
+      "categoryName": "المقبلات والشوربات الفاخرة",
+      "tag": "",
+      "rating": "4.9",
+      "price": 68.0,
+      "currency": "ر.س",
+      "desc": "كينوا ثلاثية الألوان، أفوكادو طازج، حبوب الرمان، جبن فيتا، وصلصة الحمضيات الخفيفة.",
+      "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_17",
+      "name": "بيتزا مارغريتا دي بوفالا الكلاسيكية",
+      "category": "pizza",
+      "categoryName": "البيتزا والباستا الإيطالية",
+      "tag": "",
+      "rating": "4.9",
+      "price": 95.0,
+      "currency": "ر.س",
+      "desc": "صلصة طماطم سان مارزانو، موزاريلا بوفالو، ريحان طازج، وزيت زيتون إيطالي بكر.",
+      "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_18",
+      "name": "تاجلياتيل بالكمأة السوداء وجبن البارميزان",
+      "category": "pizza",
+      "categoryName": "البيتزا والباستا الإيطالية",
+      "tag": "",
+      "rating": "4.9",
+      "price": 130.0,
+      "currency": "ر.س",
+      "desc": "باستا طازجة محضرة يومياً يدوياً، مع زبدة الكمأة وشرائح الترفل وجبنة البارميزان المعتقة 24 شهراً.",
+      "image": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_19",
+      "name": "لازانيا البولونيز التقليدية بفرن الحطب",
+      "category": "pizza",
+      "categoryName": "البيتزا والباستا الإيطالية",
+      "tag": "",
+      "rating": "4.9",
+      "price": 110.0,
+      "currency": "ر.س",
+      "desc": "طبقات الباستا مع صوص اللحم البقري المطهو ببطء وصلصة البشاميل الكريمية والجبن الذائب.",
+      "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_20",
+      "name": "ريزوتو الزعفران مع الروبيان البحري",
+      "category": "pizza",
+      "categoryName": "البيتزا والباستا الإيطالية",
+      "tag": "",
+      "rating": "4.9",
+      "price": 140.0,
+      "currency": "ر.س",
+      "desc": "أرز كارنارولي الإيطالي مع خيوط الزعفران الإيراني، روبيان طازج ومربعات الزبدة الفاخرة.",
+      "image": "https://images.unsplash.com/photo-1579684947550-22e945225d9a?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_21",
+      "name": "تيراميسو روستيكو الكلاسيكي بالماسكاربوني",
+      "category": "desserts",
+      "categoryName": "الحلويات والمشروبات المنعشة",
+      "tag": "",
+      "rating": "4.9",
+      "price": 65.0,
+      "currency": "ر.س",
+      "desc": "بسكويت ليدي فينجر المنقوع في قهوة الإسبريسو الطازجة مع كريمة الماسكاربوني المخملية ورشة الكاكاو.",
+      "image": "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_22",
+      "name": "تشيز كيك سان سيباستيان المحروقة مع التوت",
+      "category": "desserts",
+      "categoryName": "الحلويات والمشروبات المنعشة",
+      "tag": "",
+      "rating": "4.9",
+      "price": 60.0,
+      "currency": "ر.س",
+      "desc": "كعكة الجبن الإسبانية الشهيرة بقوامها الكريمي الذائب، تُقدم مع صوص التوت البري الطازج.",
+      "image": "https://images.unsplash.com/photo-1508737027454-e6454ef45afd?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_23",
+      "name": "كوكتيل موهيتو التوت البري والنعناع المنعش",
+      "category": "desserts",
+      "categoryName": "الحلويات والمشروبات المنعشة",
+      "tag": "",
+      "rating": "4.9",
+      "price": 42.0,
+      "currency": "ر.س",
+      "desc": "توت بري طازج مهروس، ليمون أخضر، أوراق النعناع الطازجة ومياه فوارة منعشة.",
+      "image": "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    },
+    {
+      "id": "dish_24",
+      "name": "قهوة إثيوبية مختصة بالتقطير V60",
+      "category": "desserts",
+      "categoryName": "الحلويات والمشروبات المنعشة",
+      "tag": "",
+      "rating": "4.9",
+      "price": 35.0,
+      "currency": "ر.س",
+      "desc": "حبوب بن مختصة ذات إيحاءات فاكهية وياسمينية، محضرة بعناية من قِبل الباريستا المحترف.",
+      "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&amp;fit=crop&amp;w=200&amp;q=80",
+      "is_special": false
+    }
+  ],
+  "vip_packages": [
+    {
+      "id": "vip_royal",
+      "name": "الأمسية الملكية VIP",
+      "badge": "الأكثر طلباً",
+      "price": 1850,
+      "currency": "ر.س",
+      "guests": "طاولة خاصة لـ 4 إلى 6 ضيوف",
+      "desc": "تجربة طهي حصرية يقدمها الشيف التنفيذي شخصياً في جناح الضيافة الملكي الخاص بالمطعم.",
+      "features": [
+        "قائمة تذوق خاصة من 7 أطباق تتضمن لحم الواغيو A5",
+        "مشروبات فاخرة ترحيبية وضيافة قهوة عربية ملكية",
+        "خدمة ساقي طعام مخصصة وكبير طهاة يشرف على المائدة",
+        "عازف بيانو كلاسيكي خاص للأمسية عند الطلب",
+        "ورود طبيعية منسقة وهدايا تذكارية فاخرة للضيوف"
+      ],
+      "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "vip_business",
+      "name": "عشاء واجتماعات الأعمال",
+      "badge": "خصوصية تامة",
+      "price": 1250,
+      "currency": "ر.س",
+      "guests": "صالة خاصة لـ 6 إلى 10 أشخاص",
+      "desc": "بيئة فاخرة وهادئة ومجهزة بأحدث التقنيات لعقد الاجتماعات ومناقشة الصفقات أثناء تناول أشهى المشويات.",
+      "features": [
+        "غرفة اجتماعات خاصة معزولة للصوت ومجهزة بشاشات عرض",
+        "بوفيه مشويات بحرية ولحوم معتقة حسب الطلب",
+        "خدمة واي فاي فائق السرعة وأجهزة تحكم بالصوت والإضاءة",
+        "فريق ضيافة مخصص لا يقاطع الاجتماعات",
+        "موقف سيارات VIP مخصص لجميع الحضور"
+      ],
+      "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "vip_romantic",
+      "name": "الأمسية الرومانسية والذكرى السنوية",
+      "badge": "طاولة لشخصين",
+      "price": 890,
+      "currency": "ر.س",
+      "guests": "طاولة خاصة لشخصين فقط",
+      "desc": "أمسية لا تُنسى في شرفة المطعم ذات الإطلالة الساحرة وسط إضاءة الشموع والموسيقى الهادئة.",
+      "features": [
+        "تزيين الطاولة ببتلات الورد الأحمر الطبيعي والشموع العطرية",
+        "عشاء فاخر من 4 أطباق مع حلوى فوندان الشوكولاتة الذهبية",
+        "كعكة احتفالية صغيرة بالذكرى مع رسالة مخصصة",
+        "مشروب فاخر ترحيبي وجلسة تصوير فورية للذكرى",
+        "أولوية الحجز في التراس البانورامي للمطعم"
+      ],
+      "image": "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=800&q=80"
+    }
+  ],
+  "categories": [
+    {
+      "id": "all",
+      "name": "كل القائمة",
+      "icon": "fa-utensils"
+    },
+    {
+      "id": "specials",
+      "name": "المختارات الملكية",
+      "icon": "fa-crown"
+    },
+    {
+      "id": "mains",
+      "name": "الرئيسية والستيك",
+      "icon": "fa-drumstick-bite"
+    },
+    {
+      "id": "appetizers",
+      "name": "المقبلات والشوربات",
+      "icon": "fa-bowl-rice"
+    },
+    {
+      "id": "pizza",
+      "name": "البيتزا والباستا",
+      "icon": "fa-pizza-slice"
+    },
+    {
+      "id": "desserts",
+      "name": "الحلويات والمشروبات",
+      "icon": "fa-cake-candles"
+    }
+  ]
+}

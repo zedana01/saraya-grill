@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اتصل بنا وموقعنا | مطعم ومشويات السرايا جريل</title>
+  <meta name="description" content="تواصل مع مطعم ومشويات السرايا جريل بالرياض. أرقام الهاتف، محادثة واتساب المباشرة، موقعنا على طريق الملك فهد، وساعات العمل.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero {
+      padding: 140px 0 60px;
+      background: linear-gradient(rgba(12, 9, 10, 0.9), rgba(12, 9, 10, 0.9)),
+                  url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80') center/cover;
+      text-align: center;
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .contact-channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      margin-bottom: 60px;
+    }
+    .channel-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .channel-card:hover {
+      border-color: var(--gold-accent);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    }
+    .channel-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1.5px solid var(--gold-accent);
+      color: var(--gold-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto 16px;
+    }
+    .channel-card h4 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+    .channel-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+    .faq-section {
+      margin-top: 70px;
+    }
+    .faq-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-md);
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 20px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: #fff;
+    }
+    .faq-question i {
+      color: var(--gold-accent);
+      transition: var(--transition);
+    }
+    .faq-answer {
+      padding: 0 25px 20px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      display: none;
+    }
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="main-header" id="mainHeader">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-wrapper">
+        <div class="logo-icon"><i class="fa-solid fa-crown"></i></div>
+        <div class="logo-text">
+          <h2>السرايا <span>جريل</span></h2>
+          <p>SARAYA LUXURY GRILL</p>
+        </div>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="menu.html" class="nav-link">قائمة الطعام</a>
+        <a href="reservation.html" class="nav-link">حجز طاولة</a>
+        <a href="about.html" class="nav-link">قصتنا</a>
+        <a href="contact.html" class="nav-link active">اتصل بنا</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="cart-toggle-btn" onclick="SarayaApp.toggleCartDrawer(true)" title="سلة الطلبات">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+
+        <a href="reservation.html" class="btn-luxury" style="padding: 10px 20px; font-size: 0.9rem;">
+          <i class="fa-solid fa-calendar-check"></i> حجز طاولة
+        </a>
+
+        <div class="mobile-menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== PAGE HERO ==================== -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="section-badge"><i class="fa-solid fa-headset"></i> خدمة العملاء والكونسيرج</div>
+      <h1 class="section-title">نسعد بتواصلكم <span>والإجابة عن استفساراتكم</span></h1>
+      <p class="section-desc" style="max-width: 650px; margin: 0 auto;">
+        فريق الضيافة والاستقبال في مطعم السرايا جريل جاهز لتلبية كافة استفساراتكم وتنسيق مناسباتكم الخاصة.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT CHANNELS ==================== -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="contact-channels-grid">
+        <div class="channel-card">
+          <div class="channel-icon"><i class="fa-brands fa-whatsapp"></i></div>
+          <h4>محادثة واتساب مباشرة</h4>
+          <p>للحجوزات السريعة والاستفسارات الفورية</p>
+          <a href="https://wa.me/966501234567" target="_blank" class="btn-luxury" style="padding:10px 20px; font-size:0.9rem;">
+            ابدأ المحادثة الآن
+          </a>
+        </div>
+
+        <div class="channel-card">
+          <div class="channel-icon"><i class="fa-solid fa-phone-volume"></i></div>
+          <h4>الاتصال الهاتفي المباشر</h4>
+          <p>متاح يومياً من 1:00 ظهراً وحتى 2:00 صباحاً</p>
+          <a href="tel:+966501234567" class="btn-gold-outline rest-phone" style="padding:10px 20px; font-size:0.9rem;">
+            +966 50 123 4567
+          </a>
+        </div>
+
+        <div class="channel-card">
+          <div class="channel-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <h4>العنوان والموقع</h4>
+          <p class="rest-address">طريق الملك فهد، حي الصحافة، الرياض</p>
+          <a href="https://maps.google.com" target="_blank" class="btn-gold-outline" style="padding:10px 20px; font-size:0.9rem;">
+            فتح الموقع على الخريطة
+          </a>
+        </div>
+
+        <div class="channel-card">
+          <div class="channel-icon"><i class="fa-solid fa-envelope"></i></div>
+          <h4>البريد الإلكتروني</h4>
+          <p>للتعاون، العلاقات العامة، والشركات</p>
+          <a href="mailto:info@saraya-grill.com" class="btn-gold-outline" style="padding:10px 20px; font-size:0.9rem;">
+            info@saraya-grill.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact Message Form -->
+      <div class="reservation-grid">
+        <div class="reservation-card">
+          <h3 style="font-size:1.6rem; margin-bottom: 10px; color:var(--gold-accent);">
+            <i class="fa-solid fa-paper-plane"></i> أرسل لنا رسالة أو استفساراً
+          </h3>
+          <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom: 25px;">
+            سنقوم بالرد عليك عبر واتساب أو الاتصال الهاتفي في غضون دقائق معدودة.
+          </p>
+
+          <form id="contactInquiryForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">الاسم الكامل *</label>
+                <input type="text" id="contactName" class="form-control" placeholder="مثال: تركي السديري" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">رقم الجوال *</label>
+                <input type="tel" id="contactPhone" class="form-control" placeholder="+966 5x xxx xxxx" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">نوع الاستفسار</label>
+              <select id="contactTopic" class="form-control">
+                <option value="حجز طاولة أو جناح ملكي">حجز طاولة أو جناح ملكي</option>
+                <option value="استفسار عن باقات VIP">استفسار عن باقات VIP ومناسبات كبرى</option>
+                <option value="طلب طعام خارجي أو بوفيه">طلب طعام خارجي أو بوفيه خاص</option>
+                <option value="اقتراح أو ملاحظة">ملاحظة أو اقتراح للإدارة</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">نص الرسالة *</label>
+              <textarea id="contactMsg" class="form-control" rows="4" placeholder="اكتب تفاصيل طلبك أو استفسارك هنا..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-luxury" style="width:100%; padding: 15px; font-size:1.05rem;">
+              <i class="fa-brands fa-whatsapp"></i> إرسال الاستفسار فوراً عبر واتساب
+            </button>
+          </form>
+        </div>
+
+        <div>
+          <!-- Google Maps Placeholder Container -->
+          <div style="background:var(--bg-surface); border:1.5px solid var(--border-dark); border-radius:var(--radius-lg); overflow:hidden; height:430px; position:relative;">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115984.85303797686!2d46.68634994999999!3d24.7135517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d48939b%3A0x6b6d51bbcfcb931!2sRiyadh%20Saudi%20Arabia!5e0!3m2!1sen!2ssa!4v1680000000000!5m2!1sen!2ssa" 
+              width="100%" 
+              height="100%" 
+              style="border:0; filter: grayscale(80%) invert(90%) contrast(120%);" 
+              allowfullscreen="" 
+              loading="lazy">
+            </iframe>
+            <div style="position:absolute; bottom:15px; right:15px; background:rgba(12,9,10,0.92); border:1px solid var(--gold-accent); padding:10px 16px; border-radius:var(--radius-md); font-size:0.88rem; color:#fff;">
+              <i class="fa-solid fa-location-dot" style="color:var(--gold-accent); margin-left:6px;"></i> طريق الملك فهد، الرياض
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="faq-section">
+        <div class="section-header">
+          <div class="section-badge"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</div>
+          <h2 class="section-title">إجابات عن <span>أكثر تساؤلات الضيوف</span></h2>
+        </div>
+
+        <div style="max-width: 850px; margin: 0 auto;">
+          <div class="faq-item active">
+            <div class="faq-question">
+              <span>هل يتطلب الحضور حجزاً مسبقاً؟</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              نرحب بضيوفنا دائماً، ولكن للحصول على أفضل تجربة وتفادي أوقات الانتظار خصوصاً خلال عطلات نهاية الأسبوع والأمسيات، نوصي بشدة بالحجز المسبق عبر موقعنا أو واتساب.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>ما هي مصادر اللحوم المستخدمة في المطعم؟</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              نعتمد حصرياً على لحوم الواغيو اليابانية المعتمدة A5، والبلاك أنجوس الأسترالي والأمريكي، والضأن النيوزيلندي والنعيمي الطازج المعتمد حلال 100%.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>هل تتوفر غرف خاصة لاجتماعات العمل أو العائلات؟</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              نعم، يضم المطعم 3 أجنحة ملكية VIP مجهزة بالكامل ومغلقة بأعلى معايير الخصوصية، ومزودة بشاشات عرض ذكية وأجهزة تحكم بالصوت والإضاءة.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>هل تتوفر خدمة التوصيل أو الاستلام؟</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              نعم، يمكنكم إضافة الأصناف المفضلة إلى سلة الطلب في الموقع والضغط على "إرسال الطلب عبر واتساب للتجهيز" ليتم تحضيرها فورياً للاستلام أو التوصيل عبر مناديبنا.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo-wrapper" style="margin-bottom: 20px;">
+            <div class="logo-icon"><i class="fa-solid fa-crown"></i></div>
+            <div class="logo-text">
+              <h2>السرايا <span>جريل</span></h2>
+              <p>SARAYA LUXURY GRILL</p>
+            </div>
+          </div>
+          <p class="footer-desc">
+            مطعم ومشويات السرايا جريل، الوجهة الأولى في المملكة لعشاق المشويات المعتقة الفاخرة، حيث تلتقي أصالة النكهة بفخامة الضيافة الملكية في أجواء ساحرة.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>روابط سريعة</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-left"></i> الرئيسية</a></li>
+            <li><a href="menu.html"><i class="fa-solid fa-chevron-left"></i> قائمة الطعام الملكية</a></li>
+            <li><a href="reservation.html"><i class="fa-solid fa-chevron-left"></i> حجز طاولة خاصة</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-left"></i> قصتنا وهويتنا</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-chevron-left"></i> اتصل بنا وموقعنا</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>السياسات والشروط</h4>
+          <ul class="footer-links">
+            <li><a href="terms.html"><i class="fa-solid fa-chevron-left"></i> شروط الخدمة والزيارة</a></li>
+            <li><a href="privacy.html"><i class="fa-solid fa-chevron-left"></i> سياسة الخصوصية</a></li>
+            <li><a href="admin/index.html"><i class="fa-solid fa-lock"></i> لوحة التحكم (المدير)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>معلومات التواصل</h4>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span class="rest-address">طريق الملك فهد، حي الصحافة، الرياض، المملكة العربية السعودية</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span class="rest-phone">+966 50 123 4567</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="rest-whatsapp">+966 50 123 4567</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 مطعم ومشويات السرايا جريل. جميع الحقوق محفوظة.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">الخصوصية</a>
+          <a href="terms.html">الشروط والأحكام</a>
+          <a href="admin/index.html"><i class="fa-solid fa-sliders"></i> لوحة التحكم</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CART DRAWER ==================== -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay" onclick="SarayaApp.toggleCartDrawer(false)"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <h3><i class="fa-solid fa-bag-shopping"></i> قائمة طلبك الحالي</h3>
+      <button class="cart-drawer-close" onclick="SarayaApp.toggleCartDrawer(false)"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-drawer-body" id="cartDrawerBody"></div>
+    <div class="cart-drawer-footer">
+      <div class="cart-total-row">
+        <span>المجموع الإجمالي:</span>
+        <span class="cart-total-num" id="cartTotalNum">0 ر.س</span>
+      </div>
+      <button class="btn-luxury" style="width: 100%;" onclick="SarayaApp.checkoutWhatsApp()">
+        <i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر واتساب للتجهيز
+      </button>
+    </div>
+  </div>
+
+  <script src="js/restaurant.js"></script>
+  <script>
+    // FAQ toggles
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        item.classList.toggle('active');
+      });
+    });
+
+    // Contact form WhatsApp submission
+    const inquiryForm = document.getElementById('contactInquiryForm');
+    if (inquiryForm) {
+      inquiryForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('contactName').value.trim();
+        const phone = document.getElementById('contactPhone').value.trim();
+        const topic = document.getElementById('contactTopic').value;
+        const msg = document.getElementById('contactMsg').value.trim();
+
+        const rest = SarayaApp.data?.restaurant || SARAYA_CONFIG.defaultRestaurant;
+        const cleanWa = rest.whatsapp.replace(/[^0-9]/g, '');
+
+        const message = `📩 *رسالة استفسار جديدة - ${rest.name}*
+━━━━━━━━━━━━━━━━━━
+👤 *الاسم:* ${name}
+📞 *الهاتف:* ${phone}
+📌 *الموضوع:* ${topic}
+💬 *الرسالة:*
+${msg}
+━━━━━━━━━━━━━━━━━━`;
+
+        window.open(`https://wa.me/${cleanWa}?text=${encodeURIComponent(message)}`, '_blank');
+        inquiryForm.reset();
+        SarayaApp.showToast('جاري توجيه رسالتكم إلى واتساب...', 'success');
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قصتنا وهويتنا | مطعم ومشويات السرايا جريل</title>
+  <meta name="description" content="تعرف على قصة مطعم السرايا جريل وفلسفة الشواء على الحطب وأسرار تعتيق اللحوم تحت إشراف نخبة من كبار الطهاة.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero {
+      padding: 140px 0 60px;
+      background: linear-gradient(rgba(12, 9, 10, 0.9), rgba(12, 9, 10, 0.9)),
+                  url('https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1920&q=80') center/cover;
+      text-align: center;
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    .value-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-lg);
+      padding: 35px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .value-card:hover {
+      border-color: var(--gold-accent);
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    }
+    .value-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1.5px solid var(--gold-accent);
+      color: var(--gold-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 20px;
+    }
+    .value-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+    .value-card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="main-header" id="mainHeader">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-wrapper">
+        <div class="logo-icon"><i class="fa-solid fa-crown"></i></div>
+        <div class="logo-text">
+          <h2>السرايا <span>جريل</span></h2>
+          <p>SARAYA LUXURY GRILL</p>
+        </div>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="menu.html" class="nav-link">قائمة الطعام</a>
+        <a href="reservation.html" class="nav-link">حجز طاولة</a>
+        <a href="about.html" class="nav-link active">قصتنا</a>
+        <a href="contact.html" class="nav-link">اتصل بنا</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="cart-toggle-btn" onclick="SarayaApp.toggleCartDrawer(true)" title="سلة الطلبات">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+
+        <a href="reservation.html" class="btn-luxury" style="padding: 10px 20px; font-size: 0.9rem;">
+          <i class="fa-solid fa-calendar-check"></i> حجز طاولة
+        </a>
+
+        <div class="mobile-menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== PAGE HERO ==================== -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="section-badge"><i class="fa-solid fa-gem"></i> أصالة الضيافة الملكية</div>
+      <h1 class="section-title">شغف الشواء <span>وفن الطهي الرفيع</span></h1>
+      <p class="section-desc" style="max-width: 650px; margin: 0 auto;">
+        نروي لكم حكاية بدأت من حب التميز والبحث عن النكهة النقية، لتتحول إلى وجهة أولى للذواقة في قلب العاصمة.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== OUR STORY DETAILED ==================== -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-image-box">
+          <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=800&q=80" alt="كبير الطهاة" class="story-image-main">
+          <div class="story-badge-card">
+            <div class="badge-icon"><i class="fa-solid fa-fire"></i></div>
+            <div>
+              <h4>أفران الحطب الطبيعي</h4>
+              <p>نكهة تدخين فريدة لا تتكرر</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-content">
+          <div class="section-badge"><i class="fa-solid fa-crown"></i> مسيرة التميز</div>
+          <h2 class="section-title">
+            نجمع بين كرم الضيافة <span>وحرفية الطهي المعاصر</span>
+          </h2>
+          <p>
+            تأسس مطعم السرايا جريل ليقدم مفهوماً غير مسبوق في عالم المطاعم الراقية بالمملكة، حيث يتكامل المذاق الغني لقطع اللحم الفاخرة مع الأجواء الملكية والديكورات العصرية المستوحاة من التراث الأندلسي الأصيل.
+          </p>
+          <p>
+            تعتمد فلسفتنا على العناية بأدق التفاصيل: من اختيار المزارع التي تُربى فيها مواشينا بأعلى المعايير، مروراً بعملية التعتيق الجاف (Dry Aging) التي تستمر من 30 إلى 45 يوماً في غرف مبردة ومعقمة بألواح ملح الهيمالايا، وصولاً إلى الشواء بدرجات حرارة محسوبة بدقة على أخشاب السنديان والزيتون.
+          </p>
+
+          <div class="story-features">
+            <div class="story-feature">
+              <i class="fa-solid fa-award"></i>
+              <div>
+                <h5>شهادات جودة عالمية</h5>
+                <p>لحوم واغيو A5 وبلاك أنجوس معتمدة المنشأ</p>
+              </div>
+            </div>
+            <div class="story-feature">
+              <i class="fa-solid fa-leaf"></i>
+              <div>
+                <h5>خضار وأعشاب عضوية</h5>
+                <p>مقطوفة يومياً من مزارع محلية مستدامة</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Values -->
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon"><i class="fa-solid fa-fire-burner"></i></div>
+          <h3>طهي حي على الحطب</h3>
+          <p>أفران طهي حجرية مشيدة خصيصاً للشواء البطيء الذي يحافظ على عصارة اللحم ويكسبه نكهة مدخنة تأسر الحواس.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon"><i class="fa-solid fa-users-viewfinder"></i></div>
+          <h3>خصوصية تامة للضيوف</h3>
+          <p>أجنحة وصالات VIP عائلية وتنفيذية معزولة بأبواب سرية وأنظمة صوتية خاصة لتوفير الراحة والسكينة المطلقة.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+          <h3>خدمة كونسيرج 5 نجوم</h3>
+          <p>فريق ضيافة مدرّب على بروتوكولات الفنادق العالمية لتقديم تجربة استثنائية تفوق توقعاتكم من لحظة الدخول.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA BANNER ==================== -->
+  <section class="section-padding" style="background: var(--bg-surface); text-align: center; border-top: 1px solid var(--border-dark);">
+    <div class="container">
+      <div class="section-badge"><i class="fa-solid fa-utensils"></i> تجربة استثنائية بانتظاركم</div>
+      <h2 class="section-title" style="margin-bottom: 20px;">جاهزون لخوض <span>المغامرة الذوقية؟</span></h2>
+      <p class="section-desc" style="max-width: 600px; margin: 0 auto 35px;">
+        يسعدنا حجز طاولتكم والترحيب بكم لتذوق أشهى أصناف الواغيو المعتق والمشويات الملكية.
+      </p>
+      <div style="display:flex; justify-content:center; gap: 16px; flex-wrap: wrap;">
+        <a href="reservation.html" class="btn-luxury"><i class="fa-solid fa-calendar-check"></i> احجز طاولتك الآن</a>
+        <a href="menu.html" class="btn-gold-outline"><i class="fa-solid fa-book-open"></i> استكشف قائمة الطعام</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo-wrapper" style="margin-bottom: 20px;">
+            <div class="logo-icon"><i class="fa-solid fa-crown"></i></div>
+            <div class="logo-text">
+              <h2>السرايا <span>جريل</span></h2>
+              <p>SARAYA LUXURY GRILL</p>
+            </div>
+          </div>
+          <p class="footer-desc">
+            مطعم ومشويات السرايا جريل، الوجهة الأولى في المملكة لعشاق المشويات المعتقة الفاخرة، حيث تلتقي أصالة النكهة بفخامة الضيافة الملكية في أجواء ساحرة.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>روابط سريعة</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-left"></i> الرئيسية</a></li>
+            <li><a href="menu.html"><i class="fa-solid fa-chevron-left"></i> قائمة الطعام الملكية</a></li>
+            <li><a href="reservation.html"><i class="fa-solid fa-chevron-left"></i> حجز طاولة خاصة</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-left"></i> قصتنا وهويتنا</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-chevron-left"></i> اتصل بنا وموقعنا</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>السياسات والشروط</h4>
+          <ul class="footer-links">
+            <li><a href="terms.html"><i class="fa-solid fa-chevron-left"></i> شروط الخدمة والزيارة</a></li>
+            <li><a href="privacy.html"><i class="fa-solid fa-chevron-left"></i> سياسة الخصوصية</a></li>
+            <li><a href="admin/index.html"><i class="fa-solid fa-lock"></i> لوحة التحكم (المدير)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>معلومات التواصل</h4>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span class="rest-address">طريق الملك فهد، حي الصحافة، الرياض، المملكة العربية السعودية</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span class="rest-phone">+966 50 123 4567</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="rest-whatsapp">+966 50 123 4567</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 مطعم ومشويات السرايا جريل. جميع الحقوق محفوظة.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">الخصوصية</a>
+          <a href="terms.html">الشروط والأحكام</a>
+          <a href="admin/index.html"><i class="fa-solid fa-sliders"></i> لوحة التحكم</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CART DRAWER ==================== -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay" onclick="SarayaApp.toggleCartDrawer(false)"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <h3><i class="fa-solid fa-bag-shopping"></i> قائمة طلبك الحالي</h3>
+      <button class="cart-drawer-close" onclick="SarayaApp.toggleCartDrawer(false)"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-drawer-body" id="cartDrawerBody"></div>
+    <div class="cart-drawer-footer">
+      <div class="cart-total-row">
+        <span>المجموع الإجمالي:</span>
+        <span class="cart-total-num" id="cartTotalNum">0 ر.س</span>
+      </div>
+      <button class="btn-luxury" style="width: 100%;" onclick="SarayaApp.checkoutWhatsApp()">
+        <i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر واتساب للتجهيز
+      </button>
+    </div>
+  </div>
+
+  <script src="js/restaurant.js"></script>
+</body>
+</html>

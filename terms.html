@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شروط الخدمة والزيارة | مطعم ومشويات السرايا جريل</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero {
+      padding: 140px 0 60px;
+      background: linear-gradient(rgba(12, 9, 10, 0.9), rgba(12, 9, 10, 0.9)),
+                  url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1920&q=80') center/cover;
+      text-align: center;
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .legal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-lg);
+      padding: 50px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .legal-content h3 {
+      font-size: 1.4rem;
+      color: var(--gold-accent);
+      margin: 30px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .legal-content h3:first-child { margin-top: 0; }
+    .legal-content p, .legal-content li {
+      color: var(--text-body);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .legal-content ul {
+      padding-right: 25px;
+      list-style-type: disc;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="main-header" id="mainHeader">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-wrapper">
+        <div class="logo-icon"><i class="fa-solid fa-crown"></i></div>
+        <div class="logo-text">
+          <h2>السرايا <span>جريل</span></h2>
+          <p>SARAYA LUXURY GRILL</p>
+        </div>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="menu.html" class="nav-link">قائمة الطعام</a>
+        <a href="reservation.html" class="nav-link">حجز طاولة</a>
+        <a href="about.html" class="nav-link">قصتنا</a>
+        <a href="contact.html" class="nav-link">اتصل بنا</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="cart-toggle-btn" onclick="SarayaApp.toggleCartDrawer(true)" title="سلة الطلبات">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+
+        <a href="reservation.html" class="btn-luxury" style="padding: 10px 20px; font-size: 0.9rem;">
+          <i class="fa-solid fa-calendar-check"></i> حجز طاولة
+        </a>
+
+        <div class="mobile-menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="section-badge"><i class="fa-solid fa-scale-balanced"></i> الوثائق النظامية</div>
+      <h1 class="section-title">الشروط والأحكام <span>وسياسة الزيارة</span></h1>
+      <p class="section-desc">تنظيم تجربة الضيافة بما يحفظ أعلى معايير الجودة والراحة لرواد مطعم السرايا جريل.</p>
+    </div>
+  </section>
+
+  <!-- ==================== CONTENT ==================== -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="legal-content">
+        <h3><i class="fa-solid fa-circle-check"></i> 1. قبول الشروط</h3>
+        <p>باستخدامكم لموقع مطعم ومشويات السرايا جريل أو إجراء حجز طاولة أو طلب أطعمة عبر خدماتنا الإلكترونية، فإنكم توافقون بالكامل وبلا قيد على الالتزام ببنود هذه الاتفاقية وسياسات الزيارة المعمول بها.</p>
+
+        <h3><i class="fa-solid fa-calendar-check"></i> 2. سياسة الحجز والمواعيد</h3>
+        <ul>
+          <li>يُطلب من الضيوف الكرام الحضور في الموعد المحدد. يتم حفظ الطاولة لمدة لا تتجاوز 15 دقيقة بعد الموعد قبل إلغاء الحجز تلقائياً.</li>
+          <li>لحجوزات الأجنحة الملكية وصالات الـ VIP وباقات المناسبات الخاصة، يُفضل الحجز المسبق قبل 24 ساعة على الأقل.</li>
+          <li>يحق للمطعم طلب تأكيد الحجز عبر رسالة واتساب أو مكالمة هاتفية قبل ساعتين من الموعد.</li>
+        </ul>
+
+        <h3><i class="fa-solid fa-shirt"></i> 3. قواعد السلوك والزي المعتمد</h3>
+        <p>حرصاً على البيئة الفاخرة والأجواء الملكية الهادئة لجميع الضيوف، نلتمس من روادنا الكرام الالتزام بالزي الأنيق (الزي الوطني السعودي، أو الزي العصري الأنيق Smart Casual). نعتذر عن استقبال الملابس الرياضية غير الرسمية أو النعال الشاطئية.</p>
+
+        <h3><i class="fa-solid fa-utensils"></i> 4. الأسعار والضرائب وقوائم الطعام</h3>
+        <p>كافة الأسعار المعروضة في قوائم الطعام والموقع تشمل ضريبة القيمة المضافة (VAT) المعتمدة في المملكة العربية السعودية (15%). قد تتغير الأسعار أو توافر بعض الأصناف الموسمية دون إشعار مسبق تبعاً لتوافر اللحوم المعتقة الطازجة.</p>
+
+        <h3><i class="fa-solid fa-ban"></i> 5. سياسة الإلغاء والاسترجاع</h3>
+        <p>يمكن إلغاء الحجوزات العادية مجاناً قبل ساعتين على الأقل من الموعد. في حال باقات المناسبات التي تتضمن تجهيزات خاصة كالورود والكعك المخصص، يُرجى الإخطار قبل 12 ساعة على الأقل.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none; padding-top:0;">
+        <p>&copy; 2026 مطعم ومشويات السرايا جريل. جميع الحقوق محفوظة.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">الخصوصية</a>
+          <a href="terms.html">الشروط والأحكام</a>
+          <a href="admin/index.html">لوحة التحكم</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/restaurant.js"></script>
+</body>
+</html>

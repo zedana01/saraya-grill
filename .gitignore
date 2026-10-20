@@ -1,0 +1,10 @@
+# Dependencies & System
+.DS_Store
+Thumbs.db
+node_modules/
+*.log
+
+# Sensitive Files
+*.env
+*.pem
+*.key

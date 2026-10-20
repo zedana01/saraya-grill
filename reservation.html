@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حجز طاولة خاصة وجناح ملكي | مطعم ومشويات السرايا جريل</title>
+  <meta name="description" content="احجز طاولتك الفاخرة أو جناحك الملكي في مطعم السرايا جريل بالرياض. خدمة كونسيرج مخصصة وتأكيد حجز فوري عبر واتساب.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-hero {
+      padding: 140px 0 60px;
+      background: linear-gradient(rgba(12, 9, 10, 0.9), rgba(12, 9, 10, 0.9)),
+                  url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80') center/cover;
+      text-align: center;
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .dining-rules-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin-top: 60px;
+    }
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 25px;
+    }
+    .rule-box {
+      display: flex;
+      gap: 16px;
+    }
+    .rule-box i {
+      font-size: 1.8rem;
+      color: var(--gold-accent);
+      flex-shrink: 0;
+    }
+    .rule-box h4 {
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+    .rule-box p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="main-header" id="mainHeader">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-wrapper">
+        <div class="logo-icon"><i class="fa-solid fa-crown"></i></div>
+        <div class="logo-text">
+          <h2>السرايا <span>جريل</span></h2>
+          <p>SARAYA LUXURY GRILL</p>
+        </div>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="menu.html" class="nav-link">قائمة الطعام</a>
+        <a href="reservation.html" class="nav-link active">حجز طاولة</a>
+        <a href="about.html" class="nav-link">قصتنا</a>
+        <a href="contact.html" class="nav-link">اتصل بنا</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="cart-toggle-btn" onclick="SarayaApp.toggleCartDrawer(true)" title="سلة الطلبات">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+
+        <a href="reservation.html" class="btn-luxury" style="padding: 10px 20px; font-size: 0.9rem;">
+          <i class="fa-solid fa-calendar-check"></i> حجز طاولة
+        </a>
+
+        <div class="mobile-menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== PAGE HERO ==================== -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="section-badge"><i class="fa-solid fa-calendar-check"></i> خدمة الحجز الملكي</div>
+      <h1 class="section-title">احجز طاولتك <span>أو جناحك الخاص</span></h1>
+      <p class="section-desc" style="max-width: 650px; margin: 0 auto;">
+        يسعدنا استقبالكم في مطعم السرايا جريل لتجربة ضيافة استثنائية. نضمن لكم مقعدكم المفضل مع تأكيد فوري عبر واتساب.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== RESERVATION FORM SECTION ==================== -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="reservation-grid">
+        <div class="reservation-card">
+          <form id="reservationForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">الاسم الكامل *</label>
+                <input type="text" id="resName" class="form-control" placeholder="مثال: عبد العزيز المنصور" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">رقم الجوال للتأكيد *</label>
+                <input type="tel" id="resPhone" class="form-control" placeholder="+966 5x xxx xxxx" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">عدد الضيوف *</label>
+                <select id="resGuests" class="form-control">
+                  <option value="1">شخص واحد</option>
+                  <option value="2" selected>شخصان (طاولة خاصة)</option>
+                  <option value="3">3 أشخاص</option>
+                  <option value="4">4 أشخاص</option>
+                  <option value="5">5 أشخاص</option>
+                  <option value="6">6 أشخاص (عائلية)</option>
+                  <option value="8">8 أشخاص (جناح خاص)</option>
+                  <option value="10+">10 أشخاص فأكثر (وفد/مناسبة)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">تاريخ الحجز *</label>
+                <input type="date" id="resDate" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">الوقت المفضل *</label>
+                <select id="resTime" class="form-control">
+                  <option value="1:30 PM">1:30 بعد الظهر (غداء)</option>
+                  <option value="2:30 PM">2:30 بعد الظهر (غداء)</option>
+                  <option value="4:00 PM">4:00 عصراً</option>
+                  <option value="7:00 PM">7:00 مساءً (عشاء مبكر)</option>
+                  <option value="8:30 PM" selected>8:30 مساءً (عشاء الذروة)</option>
+                  <option value="10:00 PM">10:00 مساءً</option>
+                  <option value="11:30 PM">11:30 مساءً</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">منطقة الجلوس المفضلة</label>
+                <select id="resZone" class="form-control">
+                  <option value="main">الصالة الملكية الرئيسية</option>
+                  <option value="terrace">الشرفة الخارجية المطلة (تراس)</option>
+                  <option value="vip">الجناح الملكي الخاص VIP</option>
+                  <option value="romantic">طاولة رومانسية هادئة</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">ملاحظات أو مناسبة خاصة (اختياري)</label>
+              <textarea id="resNotes" class="form-control" rows="3" placeholder="ذكرى سنوية، احتفال ترقية، حساسية أطعمة، كعكة مفاجأة..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-luxury" style="width: 100%; padding: 16px; font-size: 1.1rem;">
+              <i class="fa-solid fa-paper-plane"></i> إرسال الحجز والتأكيد عبر واتساب
+            </button>
+          </form>
+        </div>
+
+        <div class="reservation-info-card">
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-crown"></i></div>
+            <div class="info-content">
+              <h4>أجنحة الضيافة الملكية</h4>
+              <p>نقدم صالات مخصصة معزولة صوتياً ومجهزة بأحدث وسائل الترفيه لتضمن لضيوفكم أقصى درجات الخصوصية والرفاهية.</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-bell-concierge"></i></div>
+            <div class="info-content">
+              <h4>خدمة كونسيرج مخصصة</h4>
+              <p>فريقنا مستعد لتنسيق الورود، الكعك الاحتفالي، والموسيقى الحية حسب رغبتكم المسبقة.</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-square-parking"></i></div>
+            <div class="info-content">
+              <h4>خدمة صف السيارات VIP</h4>
+              <p>خدمة صف سيارات مجانية وسريعة لكافة رواد المطعم لضمان وصول سلس ومريح.</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-phone-volume"></i></div>
+            <div class="info-content">
+              <h4>حجوزات المجموعات الكبرى</h4>
+              <p>للحفلات والمناسبات التي تتجاوز 15 شخصاً، يرجى التواصل مباشرة عبر الهاتف: <strong class="rest-phone">+966 50 123 4567</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dining Rules & Policies -->
+      <div class="dining-rules-card" id="rules">
+        <h3 style="font-size:1.5rem; margin-bottom: 8px; color:var(--gold-accent);">
+          <i class="fa-solid fa-circle-exclamation"></i> سياسات الحجز والزيارة
+        </h3>
+        <p style="color:var(--text-muted); font-size: 0.95rem;">يرجى مراجعة التعليمات التالية لضمان أرقى مستوى من الخدمة والراحة لجميع الضيوف.</p>
+
+        <div class="rules-grid">
+          <div class="rule-box">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <div>
+              <h4>وقت الانتظار</h4>
+              <p>يتم الاحتفاظ بالطاولة لمدة 15 دقيقة بعد الموعد المحدد قبل إتاحتها للضيوف الآخرين.</p>
+            </div>
+          </div>
+
+          <div class="rule-box">
+            <i class="fa-solid fa-shirt"></i>
+            <div>
+              <h4>الزي المعتمد</h4>
+              <p>نرحب بضيوفنا بالزي الوطني السعودي أو الزي العصري الأنيق (Smart Casual).</p>
+            </div>
+          </div>
+
+          <div class="rule-box">
+            <i class="fa-solid fa-calendar-xmark"></i>
+            <div>
+              <h4>الإلغاء والتعديل</h4>
+              <p>يمكن تعديل أو إلغاء الحجز مجاناً حتى ساعتين قبل الموعد عبر رسالة واتساب بسيطة.</p>
+            </div>
+          </div>
+
+          <div class="rule-box">
+            <i class="fa-solid fa-cake-candles"></i>
+            <div>
+              <h4>المناسبات والكيك الخارجي</h4>
+              <p>يُسمح بإحضار الكعك الاحتفالي بعد التنسيق المسبق، كما نوفر قوالب كيك معدة بأيدي طهاتنا.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo-wrapper" style="margin-bottom: 20px;">
+            <div class="logo-icon"><i class="fa-solid fa-crown"></i></div>
+            <div class="logo-text">
+              <h2>السرايا <span>جريل</span></h2>
+              <p>SARAYA LUXURY GRILL</p>
+            </div>
+          </div>
+          <p class="footer-desc">
+            مطعم ومشويات السرايا جريل، الوجهة الأولى في المملكة لعشاق المشويات المعتقة الفاخرة، حيث تلتقي أصالة النكهة بفخامة الضيافة الملكية في أجواء ساحرة.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>روابط سريعة</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-left"></i> الرئيسية</a></li>
+            <li><a href="menu.html"><i class="fa-solid fa-chevron-left"></i> قائمة الطعام الملكية</a></li>
+            <li><a href="reservation.html"><i class="fa-solid fa-chevron-left"></i> حجز طاولة خاصة</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-left"></i> قصتنا وهويتنا</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-chevron-left"></i> اتصل بنا وموقعنا</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>السياسات والشروط</h4>
+          <ul class="footer-links">
+            <li><a href="terms.html"><i class="fa-solid fa-chevron-left"></i> شروط الخدمة والزيارة</a></li>
+            <li><a href="privacy.html"><i class="fa-solid fa-chevron-left"></i> سياسة الخصوصية</a></li>
+            <li><a href="admin/index.html"><i class="fa-solid fa-lock"></i> لوحة التحكم (المدير)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>معلومات التواصل</h4>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span class="rest-address">طريق الملك فهد، حي الصحافة، الرياض، المملكة العربية السعودية</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span class="rest-phone">+966 50 123 4567</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="rest-whatsapp">+966 50 123 4567</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 مطعم ومشويات السرايا جريل. جميع الحقوق محفوظة.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">الخصوصية</a>
+          <a href="terms.html">الشروط والأحكام</a>
+          <a href="admin/index.html"><i class="fa-solid fa-sliders"></i> لوحة التحكم</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CART DRAWER ==================== -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay" onclick="SarayaApp.toggleCartDrawer(false)"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <h3><i class="fa-solid fa-bag-shopping"></i> قائمة طلبك الحالي</h3>
+      <button class="cart-drawer-close" onclick="SarayaApp.toggleCartDrawer(false)"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-drawer-body" id="cartDrawerBody"></div>
+    <div class="cart-drawer-footer">
+      <div class="cart-total-row">
+        <span>المجموع الإجمالي:</span>
+        <span class="cart-total-num" id="cartTotalNum">0 ر.س</span>
+      </div>
+      <button class="btn-luxury" style="width: 100%;" onclick="SarayaApp.checkoutWhatsApp()">
+        <i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر واتساب للتجهيز
+      </button>
+    </div>
+  </div>
+
+  <script src="js/restaurant.js"></script>
+</body>
+</html>
