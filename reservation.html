@@ -163,9 +163,14 @@
               <textarea id="resNotes" class="form-control" rows="3" placeholder="ذكرى سنوية، احتفال ترقية، حساسية أطعمة، كعكة مفاجأة..."></textarea>
             </div>
 
-            <button type="submit" class="btn-luxury" style="width: 100%; padding: 16px; font-size: 1.1rem;">
-              <i class="fa-solid fa-paper-plane"></i> إرسال الحجز والتأكيد عبر واتساب
-            </button>
+            <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:20px;">
+              <button type="button" onclick="SarayaApp.submitOnlineReservation()" class="btn-luxury" style="flex:1; min-width:240px; padding: 16px; font-size: 1.05rem;">
+                <i class="fa-solid fa-calendar-check"></i> تأكيد الحجز أونلاين في الموقع
+              </button>
+              <button type="button" onclick="SarayaApp.submitWhatsAppReservation()" class="btn-gold-outline" style="flex:1; min-width:240px; padding: 16px; font-size: 1.05rem; background: rgba(37, 211, 102, 0.15); border-color: #25d366; color: #4ade80;">
+                <i class="fa-brands fa-whatsapp"></i> إرسال الحجز المباشر عبر واتساب
+              </button>
+            </div>
           </form>
         </div>
 

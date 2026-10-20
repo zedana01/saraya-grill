@@ -1,6 +1,7 @@
 /**
  * Saraya Grill - Admin Dashboard Engine
  * إدارة المطعم، الحجوزات الواردة، الأصناف، الصور، المحتوى، والنسخ الاحتياطي
+ * يدعم المزامنة السحابية الفورية عبر Cloudflare KV و LocalStorage
  */
 
 const DEFAULT_PIN = "1234";
@@ -56,9 +57,14 @@ const AdminApp = {
     await SarayaApp.loadData();
     this.dishes = SarayaApp.data?.dishes || [];
     this.restaurant = SarayaApp.data?.restaurant || {};
-    this.reservations = JSON.parse(localStorage.getItem(SARAYA_CONFIG.storageKeys.reservations) || '[]');
     this.cmsTexts = JSON.parse(localStorage.getItem(SARAYA_CONFIG.storageKeys.cmsTexts) || '{}');
     this.cmsImages = JSON.parse(localStorage.getItem(SARAYA_CONFIG.storageKeys.cmsImages) || '{}');
+
+    // Load Local reservations first
+    this.reservations = JSON.parse(localStorage.getItem(SARAYA_CONFIG.storageKeys.reservations) || '[]');
+
+    // Now fetch cloud reservations from Cloudflare KV
+    await this.fetchCloudReservations();
 
     this.renderOverview();
     this.renderReservationsTable();
@@ -67,6 +73,28 @@ const AdminApp = {
     this.loadSettingsForm();
     this.loadMediaPreviews();
     this.updateReservationStats();
+  },
+
+  async fetchCloudReservations() {
+    try {
+      const res = await fetch('/api/reservations');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.reservations)) {
+          // Merge local and cloud by id
+          const map = new Map();
+          // First add local
+          this.reservations.forEach(r => map.set(r.id, r));
+          // Then override or add cloud
+          data.reservations.forEach(r => map.set(r.id, r));
+
+          this.reservations = Array.from(map.values()).sort((a,b) => (b.timestamp || '').localeCompare(a.timestamp || ''));
+          localStorage.setItem(SARAYA_CONFIG.storageKeys.reservations, JSON.stringify(this.reservations));
+        }
+      }
+    } catch (err) {
+      console.warn("Could not fetch cloud reservations (using local cache):", err);
+    }
   },
 
   // ==================== NAVIGATION ====================
@@ -103,7 +131,9 @@ const AdminApp = {
     if (titleEl) titleEl.textContent = titles[tabKey] || 'لوحة التحكم';
 
     if (tabKey === 'reservations') {
-      this.renderReservationsTable();
+      this.fetchCloudReservations().then(() => {
+        this.renderReservationsTable();
+      });
     }
   },
 
@@ -117,7 +147,6 @@ const AdminApp = {
     if (specialsEl) specialsEl.textContent = this.dishes.filter(d => d.is_special || d.category === 'specials').length;
     if (totalResEl) totalResEl.textContent = this.reservations.length;
 
-    // Overview recent bookings
     const bookingsTbody = document.querySelector('#overviewRecentBookingsTable tbody');
     if (bookingsTbody) {
       if (this.reservations.length === 0) {
@@ -192,7 +221,7 @@ const AdminApp = {
           <td>
             <div style="display:flex; align-items:center; gap:8px;">
               <span>${r.phone}</span>
-              <a href="${waLink}" target="_blank" class="btn-quick-order" style="width:30px; height:30px; font-size:0.85rem;" title="محادثة واتساب">
+              <a href="${waLink}" target="_blank" class="btn-quick-order" style="width:30px; height:30px; font-size:0.85rem;" title="محادثة واتساب مباشرة">
                 <i class="fa-brands fa-whatsapp" style="color:#25d366;"></i>
               </a>
             </div>
@@ -235,7 +264,7 @@ const AdminApp = {
     this.renderReservationsTable(filtered);
   },
 
-  updateResStatus(id, newStatus) {
+  async updateResStatus(id, newStatus) {
     const item = this.reservations.find(r => r.id === id);
     if (!item) return;
 
@@ -243,16 +272,36 @@ const AdminApp = {
     localStorage.setItem(SARAYA_CONFIG.storageKeys.reservations, JSON.stringify(this.reservations));
     this.renderReservationsTable();
     this.renderOverview();
+
+    // Cloud patch
+    try {
+      await fetch('/api/reservations', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status: newStatus })
+      });
+    } catch (e) {
+      console.warn("Could not patch cloud status:", e);
+    }
+
     SarayaApp.showToast(`تم تغيير حالة الحجز (${id}) إلى: ${newStatus}`, 'success');
   },
 
-  deleteReservation(id) {
+  async deleteReservation(id) {
     if (!confirm(`هل أنت متأكد من حذف الحجز (${id}) نهائياً؟`)) return;
 
     this.reservations = this.reservations.filter(r => r.id !== id);
     localStorage.setItem(SARAYA_CONFIG.storageKeys.reservations, JSON.stringify(this.reservations));
     this.renderReservationsTable();
     this.renderOverview();
+
+    // Cloud delete
+    try {
+      await fetch(`/api/reservations?id=${id}`, { method: 'DELETE' });
+    } catch (e) {
+      console.warn("Could not delete from cloud:", e);
+    }
+
     SarayaApp.showToast('تم حذف الحجز من السجل', 'info');
   },
 
@@ -275,7 +324,7 @@ const AdminApp = {
     document.getElementById('manualResModal').classList.remove('active');
   },
 
-  saveManualReservation(e) {
+  async saveManualReservation(e) {
     e.preventDefault();
     const name = document.getElementById('manualResName').value.trim();
     const phone = document.getElementById('manualResPhone').value.trim();
@@ -304,6 +353,16 @@ const AdminApp = {
     this.closeManualResModal();
     this.renderReservationsTable();
     this.renderOverview();
+
+    // Cloud sync
+    try {
+      await fetch('/api/reservations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newBooking)
+      });
+    } catch (err) {}
+
     SarayaApp.showToast(`تم تسجيل الحجز اليدوي بنجاح برقم (${newBooking.id})`, 'success');
   },
 

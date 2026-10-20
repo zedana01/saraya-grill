@@ -26,7 +26,6 @@ const SARAYA_CONFIG = {
   }
 };
 
-// Global Store
 let SarayaApp = {
   data: null,
   cart: [],
@@ -49,7 +48,6 @@ let SarayaApp = {
   },
 
   async loadData() {
-    // 1. Try LocalStorage first (for instant CMS changes)
     const localDishes = localStorage.getItem(SARAYA_CONFIG.storageKeys.dishes);
     const localRest = localStorage.getItem(SARAYA_CONFIG.storageKeys.restaurant);
     const localVip = localStorage.getItem(SARAYA_CONFIG.storageKeys.vip);
@@ -60,30 +58,24 @@ let SarayaApp = {
         dishes: JSON.parse(localDishes),
         vip_packages: localVip ? JSON.parse(localVip) : []
       };
-      // Always enforce the user's specific WhatsApp number if not set or legacy
-      if (!this.data.restaurant.whatsapp || this.data.restaurant.whatsapp.includes('501234567')) {
-        this.data.restaurant.whatsapp = "201027093535";
-        this.data.restaurant.phone = "01027093535";
-        localStorage.setItem(SARAYA_CONFIG.storageKeys.restaurant, JSON.stringify(this.data.restaurant));
-      }
+      // Always enforce the user's specific WhatsApp number
+      this.data.restaurant.whatsapp = "201027093535";
+      this.data.restaurant.phone = "01027093535";
+      localStorage.setItem(SARAYA_CONFIG.storageKeys.restaurant, JSON.stringify(this.data.restaurant));
       return;
     }
 
-    // 2. Fetch default json
     try {
       const res = await fetch('data/menu.json');
       if (res.ok) {
         this.data = await res.json();
-        // Ensure user phone
         this.data.restaurant.whatsapp = "201027093535";
         this.data.restaurant.phone = "01027093535";
-        // Seed to localStorage for first-time use
         localStorage.setItem(SARAYA_CONFIG.storageKeys.dishes, JSON.stringify(this.data.dishes));
         localStorage.setItem(SARAYA_CONFIG.storageKeys.restaurant, JSON.stringify(this.data.restaurant));
         localStorage.setItem(SARAYA_CONFIG.storageKeys.vip, JSON.stringify(this.data.vip_packages));
       }
     } catch (e) {
-      console.warn("Could not fetch data/menu.json, using defaults", e);
       this.data = {
         restaurant: SARAYA_CONFIG.defaultRestaurant,
         dishes: [],
@@ -96,27 +88,20 @@ let SarayaApp = {
     const texts = JSON.parse(localStorage.getItem(SARAYA_CONFIG.storageKeys.cmsTexts) || '{}');
     const images = JSON.parse(localStorage.getItem(SARAYA_CONFIG.storageKeys.cmsImages) || '{}');
 
-    // Replace text elements
     document.querySelectorAll('[data-cms]').forEach(el => {
       const key = el.getAttribute('data-cms');
-      if (texts[key]) {
-        el.textContent = texts[key];
-      }
+      if (texts[key]) el.textContent = texts[key];
     });
 
-    // Replace images
     document.querySelectorAll('[data-cms-src]').forEach(el => {
       const key = el.getAttribute('data-cms-src');
-      if (images[key]) {
-        el.src = images[key];
-      }
+      if (images[key]) el.src = images[key];
     });
 
-    // Replace restaurant info dynamically
     if (this.data && this.data.restaurant) {
       const rest = this.data.restaurant;
-      const cleanWa = (rest.whatsapp || "201027093535").replace(/[^0-9]/g, '');
-      const displayPhone = rest.phone || "01027093535";
+      const cleanWa = "201027093535";
+      const displayPhone = "01027093535";
 
       document.querySelectorAll('.rest-phone').forEach(el => {
         el.textContent = displayPhone;
@@ -141,7 +126,6 @@ let SarayaApp = {
       });
     }
 
-    // Header scroll background effect
     const header = document.querySelector('.main-header');
     if (header) {
       window.addEventListener('scroll', () => {
@@ -161,16 +145,10 @@ let SarayaApp = {
       new Swiper('.hero-swiper', {
         loop: true,
         speed: 1000,
-        autoplay: {
-          delay: 5000,
-          disableOnInteraction: false
-        },
+        autoplay: { delay: 5000, disableOnInteraction: false },
         effect: 'fade',
         fadeEffect: { crossFade: true },
-        pagination: {
-          el: '.hero-pagination',
-          clickable: true
-        }
+        pagination: { el: '.hero-pagination', clickable: true }
       });
     }
   },
@@ -180,16 +158,10 @@ let SarayaApp = {
       new Swiper('.reviews-swiper', {
         loop: true,
         speed: 800,
-        autoplay: {
-          delay: 5500,
-          disableOnInteraction: false
-        },
+        autoplay: { delay: 5500, disableOnInteraction: false },
         slidesPerView: 1,
         spaceBetween: 24,
-        pagination: {
-          el: '.reviews-pagination',
-          clickable: true
-        },
+        pagination: { el: '.reviews-pagination', clickable: true },
         breakpoints: {
           768: { slidesPerView: 2, spaceBetween: 24 },
           1024: { slidesPerView: 3, spaceBetween: 30 }
@@ -350,11 +322,9 @@ let SarayaApp = {
     }
   },
 
-  // ==================== RESERVATION ENGINE ====================
+  // ==================== RESERVATIONS ENGINE (TWO BUTTONS + CLOUD KV) ====================
   initReservationForm() {
-    const form = document.getElementById('reservationForm');
     const dateInput = document.getElementById('resDate');
-
     if (dateInput) {
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
@@ -364,74 +334,157 @@ let SarayaApp = {
       dateInput.value = `${yyyy}-${mm}-${dd}`;
       dateInput.min = `${yyyy}-${mm}-${dd}`;
     }
+  },
 
-    if (!form) return;
+  getBookingFormData() {
+    const name = document.getElementById('resName')?.value.trim();
+    const phone = document.getElementById('resPhone')?.value.trim();
+    const guests = document.getElementById('resGuests')?.value;
+    const date = document.getElementById('resDate')?.value;
+    const time = document.getElementById('resTime')?.value;
+    const zone = document.getElementById('resZone');
+    const zoneText = zone ? zone.options[zone.selectedIndex]?.text : 'الجلسة الرئيسية';
+    const notes = document.getElementById('resNotes')?.value.trim() || 'لا توجد ملاحظات خاصة';
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('resName')?.value.trim();
-      const phone = document.getElementById('resPhone')?.value.trim();
-      const guests = document.getElementById('resGuests')?.value;
-      const date = document.getElementById('resDate')?.value;
-      const time = document.getElementById('resTime')?.value;
-      const zone = document.getElementById('resZone');
-      const zoneText = zone ? zone.options[zone.selectedIndex]?.text : 'الجلسة الرئيسية';
-      const notes = document.getElementById('resNotes')?.value.trim() || 'لا توجد ملاحظات خاصة';
+    if (!name || !phone || !date || !time) {
+      this.showToast('يرجى ملء كافة الحقول الأساسية (الاسم، الجوال، التاريخ، والوقت)', 'error');
+      return null;
+    }
 
-      if (!name || !phone || !date || !time) {
-        this.showToast('يرجى ملء كافة الحقول الأساسية', 'error');
-        return;
-      }
+    return {
+      id: 'RES-' + Math.floor(100000 + Math.random() * 900000),
+      timestamp: new Date().toISOString(),
+      created_at: new Date().toLocaleString('ar-EG', { dateStyle: 'short', timeStyle: 'short' }),
+      name,
+      phone,
+      guests: `${guests} ضيوف`,
+      date,
+      time,
+      zone: zoneText,
+      notes,
+      status: 'جديد'
+    };
+  },
 
-      // 1. SAVE TO DASHBOARD (LOCALSTORAGE DATABASE)
-      const bookingRecord = {
-        id: 'RES-' + Math.floor(100000 + Math.random() * 900000),
-        timestamp: new Date().toISOString(),
-        created_at: new Date().toLocaleString('ar-EG', { dateStyle: 'short', timeStyle: 'short' }),
-        name,
-        phone,
-        guests: `${guests} ضيوف`,
-        date,
-        time,
-        zone: zoneText,
-        notes,
-        status: 'جديد' // جديد, مؤكد, ملغي
-      };
+  async saveBookingToStorageAndCloud(booking) {
+    // 1. LocalStorage
+    try {
+      const existing = JSON.parse(localStorage.getItem(SARAYA_CONFIG.storageKeys.reservations) || '[]');
+      existing.unshift(booking);
+      localStorage.setItem(SARAYA_CONFIG.storageKeys.reservations, JSON.stringify(existing));
+    } catch (e) {
+      console.warn("LocalStorage save error:", e);
+    }
 
-      try {
-        const existing = JSON.parse(localStorage.getItem(SARAYA_CONFIG.storageKeys.reservations) || '[]');
-        existing.unshift(bookingRecord);
-        localStorage.setItem(SARAYA_CONFIG.storageKeys.reservations, JSON.stringify(existing));
-      } catch (err) {
-        console.error("Error saving reservation locally:", err);
-      }
+    // 2. Cloudflare KV Pages Function API (Cloud sync for ALL devices)
+    try {
+      await fetch('/api/reservations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(booking)
+      });
+    } catch (err) {
+      console.warn("Could not post to /api/reservations (fallback to local):", err);
+    }
+  },
 
-      // 2. WHATSAPP DIRECT MESSAGE DISPATCH
-      const targetWhatsApp = "201027093535";
-      const restName = this.data?.restaurant?.name || "مطعم ومشويات السرايا جريل";
+  // الزر 1: تأكيد الحجز أونلاين في الموقع وتسجيله مباشرة في لوحة التحكم
+  async submitOnlineReservation() {
+    const booking = this.getBookingFormData();
+    if (!booking) return;
 
-      const message = `👑 *طلب حجز طاولة جديد - ${restName}*
+    this.showToast('جاري تسجيل الحجز وتأكيده في لوحة التحكم...', 'info');
+    await this.saveBookingToStorageAndCloud(booking);
+
+    // Show Confirmation Modal
+    this.showBookingSuccessModal(booking);
+
+    // Reset Form
+    document.getElementById('reservationForm')?.reset();
+    this.initReservationForm();
+  },
+
+  // الزر 2: إرسال الحجز المباشر عبر واتساب إلى رقم المدير (01027093535)
+  async submitWhatsAppReservation() {
+    const booking = this.getBookingFormData();
+    if (!booking) return;
+
+    // Save to database first so admin has it
+    await this.saveBookingToStorageAndCloud(booking);
+
+    const targetWhatsApp = "201027093535";
+    const restName = this.data?.restaurant?.name || "مطعم ومشويات السرايا جريل";
+
+    const message = `👑 *طلب حجز طاولة جديد - ${restName}*
 ━━━━━━━━━━━━━━━━━━
-🆔 *رقم الحجز:* ${bookingRecord.id}
-👤 *اسم العميل:* ${name}
-📞 *رقم الجوال:* ${phone}
-👥 *عدد الضيوف:* ${guests} أشخاص
-📅 *تاريخ الحجز:* ${date}
-⏰ *الوقت المفضل:* ${time}
-🏛 *مكان الجلوس:* ${zoneText}
-📝 *ملاحظات خاصة:* ${notes}
+🆔 *رقم الحجز:* ${booking.id}
+👤 *اسم العميل:* ${booking.name}
+📞 *رقم الجوال:* ${booking.phone}
+👥 *عدد الضيوف:* ${booking.guests}
+📅 *تاريخ الحجز:* ${booking.date}
+⏰ *الوقت المفضل:* ${booking.time}
+🏛 *مكان الجلوس:* ${booking.zone}
+📝 *ملاحظات خاصة:* ${booking.notes}
 ━━━━━━━━━━━━━━━━━━
-*تاريخ تسجيل الطلب:* ${bookingRecord.created_at}
+*تاريخ تسجيل الطلب:* ${booking.created_at}
 نرجو تأكيد توافر الطاولة والرد شاكرين حسن تعاونكم.`;
 
-      const waUrl = `https://wa.me/${targetWhatsApp}?text=${encodeURIComponent(message)}`;
-      this.showToast(`تم تسجيل الحجز رقم (${bookingRecord.id}) بنجاح! جاري فتح واتساب...`, 'success');
+    const waUrl = `https://wa.me/${targetWhatsApp}?text=${encodeURIComponent(message)}`;
+    this.showToast(`تم حفظ الحجز بنجاح برقم (${booking.id})! جاري فتح واتساب...`, 'success');
 
-      setTimeout(() => {
-        window.open(waUrl, '_blank');
-        form.reset();
-      }, 1000);
-    });
+    setTimeout(() => {
+      window.open(waUrl, '_blank');
+      document.getElementById('reservationForm')?.reset();
+      this.initReservationForm();
+    }, 800);
+  },
+
+  showBookingSuccessModal(booking) {
+    let modal = document.getElementById('bookingSuccessModal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'bookingSuccessModal';
+      modal.className = 'dish-modal-overlay';
+      document.body.appendChild(modal);
+    }
+
+    const cleanWa = "201027093535";
+    const waQuickMsg = `مرحباً، أود التأكيد على حجز الطاولة رقم (${booking.id}) باسم: ${booking.name} لموعد ${booking.date} الساعة ${booking.time}.`;
+
+    modal.innerHTML = `
+      <div class="dish-modal-box" style="max-width:550px; text-align:center; padding:40px 30px;">
+        <div style="width:75px; height:75px; border-radius:50%; background:rgba(34,197,94,0.15); border:2px solid #22c55e; color:#22c55e; display:flex; align-items:center; justify-content:center; font-size:2.5rem; margin:0 auto 20px;">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h3 style="font-size:1.8rem; color:#fff; margin-bottom:10px;">تم استلام وتأكيد الحجز بنجاح!</h3>
+        <p style="color:var(--gold-accent); font-size:1.15rem; font-weight:700; margin-bottom:20px;">
+          رقم الحجز: <span style="letter-spacing:1px;">${booking.id}</span>
+        </p>
+        
+        <div style="background:var(--bg-main); border:1px solid var(--border-dark); border-radius:var(--radius-md); padding:20px; text-align:right; font-size:0.95rem; margin-bottom:25px; line-height:2;">
+          <div>👤 <strong>اسم الضيف:</strong> ${booking.name}</div>
+          <div>📞 <strong>رقم الجوال:</strong> ${booking.phone}</div>
+          <div>📅 <strong>موعد الحجز:</strong> ${booking.date} (${booking.time})</div>
+          <div>👥 <strong>عدد الضيوف:</strong> ${booking.guests}</div>
+          <div>🏛 <strong>مكان الجلوس:</strong> ${booking.zone}</div>
+        </div>
+
+        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:25px;">
+          تم تسجيل بياناتك رسمياً في لوحة تحكم إدارة المطعم، وسيقوم فريق الاستقبال بالتواصل معك لتأكيد الحضور.
+        </p>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <a href="https://wa.me/${cleanWa}?text=${encodeURIComponent(waQuickMsg)}" target="_blank" class="btn-gold-outline" style="padding:12px; font-size:0.92rem; border-color:#25d366; color:#4ade80;">
+            <i class="fa-brands fa-whatsapp"></i> إرسال تأكيد سريع عبر واتساب
+          </a>
+          <button onclick="document.getElementById('bookingSuccessModal').classList.remove('active')" class="btn-luxury" style="padding:12px; font-size:0.95rem;">
+            تم ومتابعة تصفح الموقع
+          </button>
+        </div>
+      </div>
+    `;
+
+    modal.classList.add('active');
   },
 
   // ==================== CART / ORDER SYSTEM ====================
