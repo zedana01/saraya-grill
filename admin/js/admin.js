@@ -1,6 +1,6 @@
 /**
  * Saraya Grill - Admin Dashboard Engine
- * إدارة المطعم، الأصناف، الصور، المحتوى، والنسخ الاحتياطي
+ * إدارة المطعم، الحجوزات الواردة، الأصناف، الصور، المحتوى، والنسخ الاحتياطي
  */
 
 const DEFAULT_PIN = "1234";
@@ -8,6 +8,7 @@ const DEFAULT_PIN = "1234";
 const AdminApp = {
   currentTab: 'overview',
   dishes: [],
+  reservations: [],
   restaurant: {},
   cmsTexts: {},
   cmsImages: {},
@@ -55,14 +56,17 @@ const AdminApp = {
     await SarayaApp.loadData();
     this.dishes = SarayaApp.data?.dishes || [];
     this.restaurant = SarayaApp.data?.restaurant || {};
+    this.reservations = JSON.parse(localStorage.getItem(SARAYA_CONFIG.storageKeys.reservations) || '[]');
     this.cmsTexts = JSON.parse(localStorage.getItem(SARAYA_CONFIG.storageKeys.cmsTexts) || '{}');
     this.cmsImages = JSON.parse(localStorage.getItem(SARAYA_CONFIG.storageKeys.cmsImages) || '{}');
 
     this.renderOverview();
+    this.renderReservationsTable();
     this.renderMenuTable();
     this.renderCmsPageFields();
     this.loadSettingsForm();
     this.loadMediaPreviews();
+    this.updateReservationStats();
   },
 
   // ==================== NAVIGATION ====================
@@ -88,6 +92,7 @@ const AdminApp = {
 
     const titles = {
       overview: 'نظرة عامة على الموقع والإحصائيات',
+      reservations: 'إدارة الحجوزات الواردة وسجل الطاولات',
       menu: 'إدارة قائمة الطعام والأصناف',
       cms: 'إدارة محتوى ونصوص كافة الصفحات (Visual CMS)',
       media: 'إدارة الصور والبانرات الملكية',
@@ -96,33 +101,243 @@ const AdminApp = {
     };
     const titleEl = document.getElementById('sectionTitle');
     if (titleEl) titleEl.textContent = titles[tabKey] || 'لوحة التحكم';
+
+    if (tabKey === 'reservations') {
+      this.renderReservationsTable();
+    }
   },
 
   // ==================== OVERVIEW ====================
   renderOverview() {
     const totalDishesEl = document.getElementById('statTotalDishes');
     const specialsEl = document.getElementById('statSpecialsCount');
+    const totalResEl = document.getElementById('statTotalRes');
+
     if (totalDishesEl) totalDishesEl.textContent = this.dishes.length;
     if (specialsEl) specialsEl.textContent = this.dishes.filter(d => d.is_special || d.category === 'specials').length;
+    if (totalResEl) totalResEl.textContent = this.reservations.length;
 
-    const tableBody = document.querySelector('#overviewRecentTable tbody');
-    if (!tableBody) return;
+    // Overview recent bookings
+    const bookingsTbody = document.querySelector('#overviewRecentBookingsTable tbody');
+    if (bookingsTbody) {
+      if (this.reservations.length === 0) {
+        bookingsTbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:30px;">لا توجد أي حجوزات مسجلة حتى الآن.</td></tr>`;
+      } else {
+        const recent = this.reservations.slice(0, 5);
+        bookingsTbody.innerHTML = recent.map(r => `
+          <tr>
+            <td><strong style="color:var(--gold-accent);">${r.id}</strong></td>
+            <td><strong>${r.name}</strong></td>
+            <td><a href="https://wa.me/${r.phone.replace(/[^0-9]/g, '')}" target="_blank" style="color:var(--gold-light);"><i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> ${r.phone}</a></td>
+            <td>${r.date}</td>
+            <td>${r.time}</td>
+            <td>${r.guests}</td>
+            <td><span class="badge-pill badge-gold">${r.zone}</span></td>
+            <td>${this.getStatusBadge(r.status)}</td>
+          </tr>
+        `).join('');
+      }
+    }
+  },
 
-    const recent = this.dishes.slice(0, 5);
-    tableBody.innerHTML = recent.map(dish => `
-      <tr>
-        <td><img src="${dish.image}" class="dish-thumb-sm" alt="${dish.name}"></td>
-        <td><strong>${dish.name}</strong></td>
-        <td><span class="badge-pill badge-gold">${dish.categoryName || dish.category}</span></td>
-        <td><strong style="color:var(--gold-accent);">${dish.price} ${dish.currency || 'ر.س'}</strong></td>
-        <td>⭐ ${dish.rating || '4.9'}</td>
-        <td>
-          <button onclick="AdminApp.editDish('${dish.id}')" class="btn-gold-outline" style="padding:4px 10px; font-size:0.8rem;">
-            <i class="fa-solid fa-pen-to-square"></i> تعديل
-          </button>
-        </td>
-      </tr>
-    `).join('');
+  // ==================== RESERVATIONS MANAGEMENT ====================
+  updateReservationStats() {
+    const total = this.reservations.length;
+    const pending = this.reservations.filter(r => r.status === 'جديد').length;
+    const confirmed = this.reservations.filter(r => r.status === 'مؤكد').length;
+    const cancelled = this.reservations.filter(r => r.status === 'ملغي').length;
+
+    const elTotal = document.getElementById('resCountTotal');
+    const elPending = document.getElementById('resCountPending');
+    const elConfirmed = document.getElementById('resCountConfirmed');
+    const elCancelled = document.getElementById('resCountCancelled');
+    const elSidebarBadge = document.getElementById('sidebarResCount');
+
+    if (elTotal) elTotal.textContent = total;
+    if (elPending) elPending.textContent = pending;
+    if (elConfirmed) elConfirmed.textContent = confirmed;
+    if (elCancelled) elCancelled.textContent = cancelled;
+
+    if (elSidebarBadge) {
+      elSidebarBadge.textContent = pending;
+      elSidebarBadge.style.display = pending > 0 ? 'inline-block' : 'none';
+    }
+  },
+
+  getStatusBadge(status) {
+    if (status === 'مؤكد') return `<span class="badge-pill badge-green"><i class="fa-solid fa-check"></i> مؤكد</span>`;
+    if (status === 'ملغي') return `<span class="badge-pill badge-red"><i class="fa-solid fa-xmark"></i> ملغي</span>`;
+    return `<span class="badge-pill badge-yellow"><i class="fa-solid fa-clock"></i> جديد</span>`;
+  },
+
+  renderReservationsTable(items = null) {
+    const list = items || this.reservations;
+    const tbody = document.querySelector('#adminReservationsTable tbody');
+    if (!tbody) return;
+
+    if (list.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; color:var(--text-muted); padding:40px;">لا توجد نتائج مطابقة في سجل الحجوزات.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = list.map(r => {
+      const cleanPhone = r.phone.replace(/[^0-9]/g, '');
+      const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(`مرحباً أستاذ ${r.name}، بخصوص حجزكم في مطعم السرايا جريل برقم (${r.id}) لموعد: ${r.date} الساعة ${r.time}...`)}`;
+      
+      return `
+        <tr>
+          <td><strong style="color:var(--gold-accent);">${r.id}</strong></td>
+          <td style="font-size:0.85rem; color:var(--text-muted);">${r.created_at || '-'}</td>
+          <td><strong>${r.name}</strong></td>
+          <td>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span>${r.phone}</span>
+              <a href="${waLink}" target="_blank" class="btn-quick-order" style="width:30px; height:30px; font-size:0.85rem;" title="محادثة واتساب">
+                <i class="fa-brands fa-whatsapp" style="color:#25d366;"></i>
+              </a>
+            </div>
+          </td>
+          <td><strong>${r.date}</strong> <small style="color:var(--gold-accent);">(${r.time})</small></td>
+          <td>${r.guests}</td>
+          <td><span class="badge-pill badge-gold">${r.zone}</span></td>
+          <td style="max-width:200px; font-size:0.85rem; color:var(--text-muted);">${r.notes || '-'}</td>
+          <td>${this.getStatusBadge(r.status)}</td>
+          <td>
+            <div style="display:flex; gap:6px;">
+              <button onclick="AdminApp.updateResStatus('${r.id}', 'مؤكد')" class="btn-luxury" style="padding:4px 8px; font-size:0.75rem;" title="تأكيد الحجز">
+                <i class="fa-solid fa-check"></i>
+              </button>
+              <button onclick="AdminApp.updateResStatus('${r.id}', 'ملغي')" class="btn-wine" style="padding:4px 8px; font-size:0.75rem;" title="إلغاء الحجز">
+                <i class="fa-solid fa-ban"></i>
+              </button>
+              <button onclick="AdminApp.deleteReservation('${r.id}')" class="btn-gold-outline" style="padding:4px 8px; font-size:0.75rem;" title="حذف نهائي">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    this.updateReservationStats();
+  },
+
+  filterReservationsTable() {
+    const query = document.getElementById('resSearchInput')?.value.toLowerCase().trim() || '';
+    const status = document.getElementById('resStatusFilter')?.value || 'all';
+
+    const filtered = this.reservations.filter(r => {
+      const matchStatus = (status === 'all') || (r.status === status);
+      const matchQuery = !query || r.name.toLowerCase().includes(query) || r.phone.includes(query) || (r.id && r.id.toLowerCase().includes(query));
+      return matchStatus && matchQuery;
+    });
+
+    this.renderReservationsTable(filtered);
+  },
+
+  updateResStatus(id, newStatus) {
+    const item = this.reservations.find(r => r.id === id);
+    if (!item) return;
+
+    item.status = newStatus;
+    localStorage.setItem(SARAYA_CONFIG.storageKeys.reservations, JSON.stringify(this.reservations));
+    this.renderReservationsTable();
+    this.renderOverview();
+    SarayaApp.showToast(`تم تغيير حالة الحجز (${id}) إلى: ${newStatus}`, 'success');
+  },
+
+  deleteReservation(id) {
+    if (!confirm(`هل أنت متأكد من حذف الحجز (${id}) نهائياً؟`)) return;
+
+    this.reservations = this.reservations.filter(r => r.id !== id);
+    localStorage.setItem(SARAYA_CONFIG.storageKeys.reservations, JSON.stringify(this.reservations));
+    this.renderReservationsTable();
+    this.renderOverview();
+    SarayaApp.showToast('تم حذف الحجز من السجل', 'info');
+  },
+
+  openManualResModal() {
+    const modal = document.getElementById('manualResModal');
+    const form = document.getElementById('manualResForm');
+    form.reset();
+
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const yyyy = tomorrow.getFullYear();
+    const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    const dd = String(tomorrow.getDate()).padStart(2, '0');
+    document.getElementById('manualResDate').value = `${yyyy}-${mm}-${dd}`;
+
+    modal.classList.add('active');
+  },
+
+  closeManualResModal() {
+    document.getElementById('manualResModal').classList.remove('active');
+  },
+
+  saveManualReservation(e) {
+    e.preventDefault();
+    const name = document.getElementById('manualResName').value.trim();
+    const phone = document.getElementById('manualResPhone').value.trim();
+    const date = document.getElementById('manualResDate').value;
+    const time = document.getElementById('manualResTime').value.trim();
+    const guests = document.getElementById('manualResGuests').value;
+    const zone = document.getElementById('manualResZone').value;
+    const notes = document.getElementById('manualResNotes').value.trim() || 'حجز يدوي من الإدارة';
+
+    const newBooking = {
+      id: 'RES-' + Math.floor(100000 + Math.random() * 900000),
+      timestamp: new Date().toISOString(),
+      created_at: new Date().toLocaleString('ar-EG', { dateStyle: 'short', timeStyle: 'short' }),
+      name,
+      phone,
+      guests,
+      date,
+      time,
+      zone,
+      notes,
+      status: 'مؤكد'
+    };
+
+    this.reservations.unshift(newBooking);
+    localStorage.setItem(SARAYA_CONFIG.storageKeys.reservations, JSON.stringify(this.reservations));
+    this.closeManualResModal();
+    this.renderReservationsTable();
+    this.renderOverview();
+    SarayaApp.showToast(`تم تسجيل الحجز اليدوي بنجاح برقم (${newBooking.id})`, 'success');
+  },
+
+  exportReservationsCSV() {
+    if (this.reservations.length === 0) {
+      SarayaApp.showToast('لا توجد حجوزات لتصديرها حالياً', 'error');
+      return;
+    }
+
+    const headers = ["رقم الحجز", "تاريخ التسجيل", "اسم العميل", "رقم الجوال", "تاريخ الحجز", "الوقت", "الضيوف", "الجلسة", "الملاحظات", "الحالة"];
+    const rows = this.reservations.map(r => [
+      r.id,
+      r.created_at || '',
+      `"${r.name.replace(/"/g, '""')}"`,
+      `"${r.phone}"`,
+      r.date,
+      r.time,
+      `"${r.guests}"`,
+      `"${r.zone}"`,
+      `"${(r.notes || '').replace(/"/g, '""')}"`,
+      r.status
+    ]);
+
+    const csvContent = "\uFEFF" + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `saraya_reservations_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    SarayaApp.showToast('تم تصدير ملف الحجوزات بنجاح بصيغة CSV المتوافقة مع Excel!', 'success');
   },
 
   // ==================== MENU CRUD ====================
@@ -247,7 +462,6 @@ const AdminApp = {
     };
 
     if (id) {
-      // Edit
       const idx = this.dishes.findIndex(d => d.id === id);
       if (idx !== -1) {
         this.dishes[idx] = {
@@ -256,7 +470,6 @@ const AdminApp = {
         };
       }
     } else {
-      // New
       const newDish = {
         id: `dish_${Date.now()}`,
         name,
@@ -376,8 +589,8 @@ const AdminApp = {
     const rest = this.restaurant;
     document.getElementById('setRestName').value = rest.name || '';
     document.getElementById('setRestSlogan').value = rest.slogan || '';
-    document.getElementById('setRestPhone').value = rest.phone || '';
-    document.getElementById('setRestWa').value = rest.whatsapp || '';
+    document.getElementById('setRestPhone').value = rest.phone || '01027093535';
+    document.getElementById('setRestWa').value = rest.whatsapp || '201027093535';
     document.getElementById('setRestEmail').value = rest.email || '';
     document.getElementById('setRestCurrency').value = rest.currency || 'ر.س';
     document.getElementById('setRestAddress').value = rest.address || '';
@@ -408,6 +621,7 @@ const AdminApp = {
       timestamp: new Date().toISOString(),
       restaurant: this.restaurant,
       dishes: this.dishes,
+      reservations: this.reservations,
       vip_packages: SarayaApp.data?.vip_packages || [],
       cmsTexts: this.cmsTexts,
       cmsImages: this.cmsImages
@@ -431,6 +645,9 @@ const AdminApp = {
         const parsed = JSON.parse(event.target.result);
         if (parsed.dishes) {
           localStorage.setItem(SARAYA_CONFIG.storageKeys.dishes, JSON.stringify(parsed.dishes));
+        }
+        if (parsed.reservations) {
+          localStorage.setItem(SARAYA_CONFIG.storageKeys.reservations, JSON.stringify(parsed.reservations));
         }
         if (parsed.restaurant) {
           localStorage.setItem(SARAYA_CONFIG.storageKeys.restaurant, JSON.stringify(parsed.restaurant));
@@ -458,6 +675,7 @@ const AdminApp = {
     if (!confirm('تحذير: سيتم مسح كافة التعديلات المخصصة والعودة إلى البيانات الأصلية للمطعم. هل أنت متأكد؟')) return;
 
     localStorage.removeItem(SARAYA_CONFIG.storageKeys.dishes);
+    localStorage.removeItem(SARAYA_CONFIG.storageKeys.reservations);
     localStorage.removeItem(SARAYA_CONFIG.storageKeys.restaurant);
     localStorage.removeItem(SARAYA_CONFIG.storageKeys.vip);
     localStorage.removeItem(SARAYA_CONFIG.storageKeys.cmsTexts);

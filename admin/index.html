@@ -94,6 +94,7 @@
       cursor: pointer;
       transition: var(--transition);
       border: 1px solid transparent;
+      position: relative;
     }
     .admin-nav-item:hover {
       background: var(--bg-surface-elevated);
@@ -206,6 +207,7 @@
       font-weight: 700;
       font-size: 0.92rem;
       border-bottom: 1px solid var(--border-dark);
+      white-space: nowrap;
     }
     .admin-table td {
       padding: 14px 18px;
@@ -241,6 +243,21 @@
       background: rgba(139,29,44,0.3);
       color: #ff8899;
       border: 1px solid rgba(139,29,44,0.6);
+    }
+    .badge-green {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.5);
+    }
+    .badge-yellow {
+      background: rgba(234, 179, 8, 0.2);
+      color: #facc15;
+      border: 1px solid rgba(234, 179, 8, 0.5);
+    }
+    .badge-red {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.5);
     }
 
     /* Modal Form */
@@ -346,6 +363,10 @@
         <div class="admin-nav-item active" data-section="overview">
           <i class="fa-solid fa-chart-pie"></i> نظرة عامة
         </div>
+        <div class="admin-nav-item" data-section="reservations">
+          <i class="fa-solid fa-calendar-check"></i> الحجوزات الواردة
+          <span class="badge-pill badge-wine" id="sidebarResCount" style="display:none; margin-right:auto; font-size:0.75rem;">0</span>
+        </div>
         <div class="admin-nav-item" data-section="menu">
           <i class="fa-solid fa-utensils"></i> قائمة الطعام (الأصناف)
         </div>
@@ -380,10 +401,13 @@
       <div class="admin-topbar">
         <div>
           <h2 id="sectionTitle" style="font-size: 1.8rem; color: #fff;">نظرة عامة على الموقع</h2>
-          <p style="color: var(--text-muted); font-size: 0.92rem;">إدارة كافة محتويات المطعم بسهولة ودون الحاجة لأي برمجة.</p>
+          <p style="color: var(--text-muted); font-size: 0.92rem;">إدارة كافة محتويات المطعم والحجوزات بسهولة ودون الحاجة لأي برمجة.</p>
         </div>
         <div style="display:flex; gap: 12px;">
-          <button onclick="AdminApp.openDishModal()" class="btn-luxury" style="padding: 10px 20px; font-size: 0.9rem;">
+          <button onclick="AdminApp.switchTab('reservations')" class="btn-luxury" style="padding: 10px 20px; font-size: 0.9rem;">
+            <i class="fa-solid fa-calendar-check"></i> عرض الحجوزات
+          </button>
+          <button onclick="AdminApp.openDishModal()" class="btn-gold-outline" style="padding: 10px 20px; font-size: 0.9rem;">
             <i class="fa-solid fa-plus"></i> إضافة طبق جديد
           </button>
         </div>
@@ -392,6 +416,14 @@
       <!-- SECTION 1: OVERVIEW -->
       <div class="admin-sec-view" id="sec-overview">
         <div class="admin-stats-grid">
+          <div class="stat-card" onclick="AdminApp.switchTab('reservations')" style="cursor:pointer; border-color:var(--gold-accent);">
+            <div class="stat-icon" style="background:rgba(212,175,55,0.2);"><i class="fa-solid fa-calendar-check"></i></div>
+            <div class="stat-info">
+              <h3 id="statTotalRes">0</h3>
+              <p>إجمالي الحجوزات المسجلة</p>
+            </div>
+          </div>
+
           <div class="stat-card">
             <div class="stat-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
             <div class="stat-info">
@@ -415,32 +447,107 @@
               <p>باقات الضيافة VIP</p>
             </div>
           </div>
+        </div>
 
+        <!-- Latest Bookings Widget in Overview -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3><i class="fa-solid fa-bell" style="color:var(--gold-accent);"></i> أحدث الحجوزات الواردة</h3>
+            <button onclick="AdminApp.switchTab('reservations')" class="btn-luxury" style="padding: 6px 16px; font-size:0.85rem;">
+              إدارة كافة الحجوزات
+            </button>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="admin-table" id="overviewRecentBookingsTable">
+              <thead>
+                <tr>
+                  <th>رقم الحجز</th>
+                  <th>اسم العميل</th>
+                  <th>رقم الجوال</th>
+                  <th>تاريخ الحجز</th>
+                  <th>الوقت</th>
+                  <th>الضيوف</th>
+                  <th>الجلسة</th>
+                  <th>الحالة</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Injected by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: RESERVATIONS MANAGEMENT (NEW & COMPREHENSIVE) -->
+      <div class="admin-sec-view" id="sec-reservations" style="display:none;">
+        <div class="admin-stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
           <div class="stat-card">
-            <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <div class="stat-icon"><i class="fa-solid fa-calendar-days"></i></div>
             <div class="stat-info">
-              <h3>5</h3>
-              <p>تصنيفات طعام رئيسية</p>
+              <h3 id="resCountTotal">0</h3>
+              <p>إجمالي الحجوزات</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color:#facc15;"><i class="fa-solid fa-clock"></i></div>
+            <div class="stat-info">
+              <h3 id="resCountPending" style="color:#facc15;">0</h3>
+              <p>حجوزات جديدة (قيد المراجعة)</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color:#4ade80;"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="stat-info">
+              <h3 id="resCountConfirmed" style="color:#4ade80;">0</h3>
+              <p>حجوزات مؤكدة</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color:#f87171;"><i class="fa-solid fa-circle-xmark"></i></div>
+            <div class="stat-info">
+              <h3 id="resCountCancelled" style="color:#f87171;">0</h3>
+              <p>حجوزات ملغية</p>
             </div>
           </div>
         </div>
 
         <div class="admin-card">
           <div class="admin-card-header">
-            <h3><i class="fa-solid fa-star" style="color:var(--gold-accent);"></i> أحدث الأصناف الملكية</h3>
-            <button onclick="AdminApp.switchTab('menu')" class="btn-gold-outline" style="padding: 6px 16px; font-size:0.85rem;">
-              عرض كل القائمة
-            </button>
+            <div style="display:flex; align-items:center; gap: 15px; flex-wrap:wrap;">
+              <h3><i class="fa-solid fa-calendar-check" style="color:var(--gold-accent);"></i> سجل الحجوزات والطلبات</h3>
+              <input type="text" id="resSearchInput" oninput="AdminApp.filterReservationsTable()" placeholder="ابحث باسم العميل أو رقم الجوال..." class="form-control" style="width: 260px; padding: 8px 14px; font-size:0.88rem;">
+              <select id="resStatusFilter" onchange="AdminApp.filterReservationsTable()" class="form-control" style="width: 170px; padding: 8px 14px; font-size:0.88rem;">
+                <option value="all">كل الحالات</option>
+                <option value="جديد">جديد فقط</option>
+                <option value="مؤكد">مؤكد</option>
+                <option value="ملغي">ملغي</option>
+              </select>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button onclick="AdminApp.openManualResModal()" class="btn-luxury" style="padding: 8px 18px; font-size:0.88rem;">
+                <i class="fa-solid fa-plus"></i> إضافة حجز يدوي
+              </button>
+              <button onclick="AdminApp.exportReservationsCSV()" class="btn-gold-outline" style="padding: 8px 18px; font-size:0.88rem;">
+                <i class="fa-solid fa-file-excel"></i> تصدير Excel
+              </button>
+            </div>
           </div>
+
           <div style="overflow-x:auto;">
-            <table class="admin-table" id="overviewRecentTable">
+            <table class="admin-table" id="adminReservationsTable">
               <thead>
                 <tr>
-                  <th>الصورة</th>
-                  <th>اسم الطبق</th>
-                  <th>التصنيف</th>
-                  <th>السعر</th>
-                  <th>التقييم</th>
+                  <th>رقم الحجز</th>
+                  <th>وقت التسجيل</th>
+                  <th>اسم العميل</th>
+                  <th>رقم الجوال</th>
+                  <th>موعد الحجز</th>
+                  <th>عدد الضيوف</th>
+                  <th>الجلسة</th>
+                  <th>ملاحظات العميل</th>
+                  <th>الحالة</th>
                   <th>الإجراءات</th>
                 </tr>
               </thead>
@@ -528,7 +635,6 @@
           </div>
 
           <div class="story-features" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-            <!-- Hero Banner 1 -->
             <div class="stat-card" style="flex-direction:column; align-items:flex-start;">
               <h4 style="color:var(--gold-accent); margin-bottom:10px;">بانر الهيدر 1 (ستيك الواغيو)</h4>
               <div class="img-preview-box" id="preview-hero_1">
@@ -540,7 +646,6 @@
               </button>
             </div>
 
-            <!-- Story Chef Image -->
             <div class="stat-card" style="flex-direction:column; align-items:flex-start;">
               <h4 style="color:var(--gold-accent); margin-bottom:10px;">صورة الشيف التنفيذي</h4>
               <div class="img-preview-box" id="preview-story_img">
@@ -552,7 +657,6 @@
               </button>
             </div>
 
-            <!-- VIP Card Image -->
             <div class="stat-card" style="flex-direction:column; align-items:flex-start;">
               <h4 style="color:var(--gold-accent); margin-bottom:10px;">صورة صالة VIP والأمسيات</h4>
               <div class="img-preview-box" id="preview-vip_img">
@@ -632,13 +736,13 @@
         <div class="admin-card">
           <div class="admin-card-header">
             <h3><i class="fa-solid fa-database" style="color:var(--gold-accent);"></i> النسخ الاحتياطي ونقل البيانات</h3>
-            <p style="color:var(--text-muted); font-size:0.88rem;">يمكنك حفظ كافة تعديلاتك في ملف واحد واستعادتها في أي وقت بنقرة واحدة.</p>
+            <p style="color:var(--text-muted); font-size:0.88rem;">يمكنك حفظ كافة تعديلاتك والحجوزات في ملف واحد واستعادتها في أي وقت بنقرة واحدة.</p>
           </div>
 
           <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top:20px;">
             <div class="stat-card" style="flex-direction:column; align-items:flex-start;">
               <h4 style="color:var(--gold-accent); margin-bottom:8px;"><i class="fa-solid fa-download"></i> تصدير نسخة احتياطية (JSON)</h4>
-              <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:20px;">تنزيل ملف يحتوي على كافة الأصناف والصور والنصوص والإعدادات الحالية.</p>
+              <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:20px;">تنزيل ملف يحتوي على كافة الأصناف والحجوزات والصور والنصوص والإعدادات.</p>
               <button onclick="AdminApp.exportBackup()" class="btn-luxury" style="width:100%; padding: 12px;">
                 تحميل النسخة الاحتياطية الآن
               </button>
@@ -665,6 +769,72 @@
       </div>
 
     </main>
+  </div>
+
+  <!-- ==================== MANUAL RESERVATION MODAL ==================== -->
+  <div class="admin-modal-overlay" id="manualResModal">
+    <div class="admin-modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h3 style="color:var(--gold-accent); font-size:1.4rem;"><i class="fa-solid fa-calendar-plus"></i> تسجيل حجز يدوي جديد</h3>
+        <button onclick="AdminApp.closeManualResModal()" style="color:var(--text-muted); font-size:1.3rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="manualResForm" onsubmit="AdminApp.saveManualReservation(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">اسم العميل *</label>
+            <input type="text" id="manualResName" class="form-control" placeholder="اسم الضيف الكريم" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">رقم الهاتف *</label>
+            <input type="tel" id="manualResPhone" class="form-control" placeholder="010xxxxxxx" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">تاريخ الحجز *</label>
+            <input type="date" id="manualResDate" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">وقت الحجز *</label>
+            <input type="text" id="manualResTime" class="form-control" placeholder="مثال: 8:30 PM" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">عدد الضيوف</label>
+            <select id="manualResGuests" class="form-control">
+              <option value="شخص واحد">شخص واحد</option>
+              <option value="شخصان (طاولة خاصة)" selected>شخصان</option>
+              <option value="4 أشخاص">4 أشخاص</option>
+              <option value="6 أشخاص (عائلية)">6 أشخاص</option>
+              <option value="جناح ملكي (8-10 أشخاص)">جناح ملكي (8-10)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">مكان الجلوس</label>
+            <select id="manualResZone" class="form-control">
+              <option value="الصالة الملكية الرئيسية">الصالة الملكية الرئيسية</option>
+              <option value="الشرفة الخارجية (تراس)">الشرفة الخارجية (تراس)</option>
+              <option value="الجناح الملكي الخاص VIP">الجناح الملكي الخاص VIP</option>
+              <option value="طاولة رومانسية هادئة">طاولة رومانسية هادئة</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ملاحظات خاصة</label>
+          <textarea id="manualResNotes" class="form-control" rows="2" placeholder="أي تفاصيل إضافية"></textarea>
+        </div>
+
+        <div style="margin-top:20px; display:flex; justify-content:flex-end; gap:12px;">
+          <button type="button" onclick="AdminApp.closeManualResModal()" class="btn-gold-outline" style="padding:10px 20px;">إلغاء</button>
+          <button type="submit" class="btn-luxury" style="padding:10px 24px;"><i class="fa-solid fa-check"></i> حفظ الحجز في السجل</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <!-- ==================== DISH ADD/EDIT MODAL ==================== -->

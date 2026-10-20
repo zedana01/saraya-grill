@@ -10,14 +10,15 @@ const SARAYA_CONFIG = {
     vip: 'saraya_vip_packages',
     cmsTexts: 'saraya_cms_texts',
     cmsImages: 'saraya_cms_images',
-    cart: 'saraya_cart'
+    cart: 'saraya_cart',
+    reservations: 'saraya_reservations'
   },
   defaultRestaurant: {
     name: "مطعم ومشويات السرايا جريل",
     short_name: "السرايا جريل",
     slogan: "فن الشواء الأصيل وفخامة الضيافة الملكية",
-    phone: "+966 50 123 4567",
-    whatsapp: "+966501234567",
+    phone: "01027093535",
+    whatsapp: "201027093535",
     email: "info@saraya-grill.com",
     address: "طريق الملك فهد، حي الصحافة، الرياض، المملكة العربية السعودية",
     currency: "ر.س",
@@ -59,6 +60,12 @@ let SarayaApp = {
         dishes: JSON.parse(localDishes),
         vip_packages: localVip ? JSON.parse(localVip) : []
       };
+      // Always enforce the user's specific WhatsApp number if not set or legacy
+      if (!this.data.restaurant.whatsapp || this.data.restaurant.whatsapp.includes('501234567')) {
+        this.data.restaurant.whatsapp = "201027093535";
+        this.data.restaurant.phone = "01027093535";
+        localStorage.setItem(SARAYA_CONFIG.storageKeys.restaurant, JSON.stringify(this.data.restaurant));
+      }
       return;
     }
 
@@ -67,6 +74,9 @@ let SarayaApp = {
       const res = await fetch('data/menu.json');
       if (res.ok) {
         this.data = await res.json();
+        // Ensure user phone
+        this.data.restaurant.whatsapp = "201027093535";
+        this.data.restaurant.phone = "01027093535";
         // Seed to localStorage for first-time use
         localStorage.setItem(SARAYA_CONFIG.storageKeys.dishes, JSON.stringify(this.data.dishes));
         localStorage.setItem(SARAYA_CONFIG.storageKeys.restaurant, JSON.stringify(this.data.restaurant));
@@ -105,13 +115,16 @@ let SarayaApp = {
     // Replace restaurant info dynamically
     if (this.data && this.data.restaurant) {
       const rest = this.data.restaurant;
+      const cleanWa = (rest.whatsapp || "201027093535").replace(/[^0-9]/g, '');
+      const displayPhone = rest.phone || "01027093535";
+
       document.querySelectorAll('.rest-phone').forEach(el => {
-        el.textContent = rest.phone;
-        if (el.tagName === 'A') el.href = `tel:${rest.phone.replace(/\s+/g, '')}`;
+        el.textContent = displayPhone;
+        if (el.tagName === 'A') el.href = `tel:${cleanWa}`;
       });
       document.querySelectorAll('.rest-whatsapp').forEach(el => {
-        el.textContent = rest.whatsapp;
-        if (el.tagName === 'A') el.href = `https://wa.me/${rest.whatsapp.replace(/[^0-9]/g, '')}`;
+        el.textContent = displayPhone;
+        if (el.tagName === 'A') el.href = `https://wa.me/${cleanWa}`;
       });
       document.querySelectorAll('.rest-address').forEach(el => el.textContent = rest.address);
       document.querySelectorAll('.rest-hours').forEach(el => el.textContent = rest.working_hours);
@@ -217,11 +230,9 @@ let SarayaApp = {
   },
 
   renderMenuTabs() {
-    const tabsContainer = document.querySelector('.menu-tabs-wrapper');
     const contentContainer = document.getElementById('menuTabsContent');
     if (!contentContainer || !this.data || !this.data.dishes) return;
 
-    // Filter non-specials dishes
     const regularDishes = this.data.dishes.filter(d => !d.is_special && d.category !== 'specials');
 
     const categories = [
@@ -256,7 +267,6 @@ let SarayaApp = {
       `;
     }).join('');
 
-    // Tab buttons event
     const tabBtns = document.querySelectorAll('.menu-tab-btn');
     tabBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -305,7 +315,6 @@ let SarayaApp = {
       });
     }
 
-    // Set initial
     this.selectVipPackage('royal');
   },
 
@@ -334,13 +343,14 @@ let SarayaApp = {
       `).join('');
     }
     if (waBtn) {
-      const rest = this.data.restaurant || SARAYA_CONFIG.defaultRestaurant;
-      const cleanWa = rest.whatsapp.replace(/[^0-9]/g, '');
+      const rest = this.data?.restaurant || SARAYA_CONFIG.defaultRestaurant;
+      const cleanWa = "201027093535";
       const msg = `مرحباً ${rest.name}، أود الاستفسار وحجز ${pkg.name} (${pkg.price} ${pkg.currency || 'ر.س'}). يرجى تأكيد الموعد المتاح.`;
       waBtn.href = `https://wa.me/${cleanWa}?text=${encodeURIComponent(msg)}`;
     }
   },
 
+  // ==================== RESERVATION ENGINE ====================
   initReservationForm() {
     const form = document.getElementById('reservationForm');
     const dateInput = document.getElementById('resDate');
@@ -366,30 +376,57 @@ let SarayaApp = {
       const time = document.getElementById('resTime')?.value;
       const zone = document.getElementById('resZone');
       const zoneText = zone ? zone.options[zone.selectedIndex]?.text : 'الجلسة الرئيسية';
-      const notes = document.getElementById('resNotes')?.value.trim() || 'لا يوجد';
+      const notes = document.getElementById('resNotes')?.value.trim() || 'لا توجد ملاحظات خاصة';
 
       if (!name || !phone || !date || !time) {
-        this.showToast('يرجى ملء جميع الحقول المطلوبة', 'error');
+        this.showToast('يرجى ملء كافة الحقول الأساسية', 'error');
         return;
       }
 
-      const rest = this.data?.restaurant || SARAYA_CONFIG.defaultRestaurant;
-      const cleanWa = rest.whatsapp.replace(/[^0-9]/g, '');
+      // 1. SAVE TO DASHBOARD (LOCALSTORAGE DATABASE)
+      const bookingRecord = {
+        id: 'RES-' + Math.floor(100000 + Math.random() * 900000),
+        timestamp: new Date().toISOString(),
+        created_at: new Date().toLocaleString('ar-EG', { dateStyle: 'short', timeStyle: 'short' }),
+        name,
+        phone,
+        guests: `${guests} ضيوف`,
+        date,
+        time,
+        zone: zoneText,
+        notes,
+        status: 'جديد' // جديد, مؤكد, ملغي
+      };
 
-      const message = `👑 *طلب حجز طاولة جديدة - ${rest.name}*
+      try {
+        const existing = JSON.parse(localStorage.getItem(SARAYA_CONFIG.storageKeys.reservations) || '[]');
+        existing.unshift(bookingRecord);
+        localStorage.setItem(SARAYA_CONFIG.storageKeys.reservations, JSON.stringify(existing));
+      } catch (err) {
+        console.error("Error saving reservation locally:", err);
+      }
+
+      // 2. WHATSAPP DIRECT MESSAGE DISPATCH
+      const targetWhatsApp = "201027093535";
+      const restName = this.data?.restaurant?.name || "مطعم ومشويات السرايا جريل";
+
+      const message = `👑 *طلب حجز طاولة جديد - ${restName}*
 ━━━━━━━━━━━━━━━━━━
-👤 *الاسم:* ${name}
-📞 *رقم الهاتف:* ${phone}
+🆔 *رقم الحجز:* ${bookingRecord.id}
+👤 *اسم العميل:* ${name}
+📞 *رقم الجوال:* ${phone}
 👥 *عدد الضيوف:* ${guests} أشخاص
 📅 *تاريخ الحجز:* ${date}
 ⏰ *الوقت المفضل:* ${time}
-🏛 *منطقة الجلوس:* ${zoneText}
+🏛 *مكان الجلوس:* ${zoneText}
 📝 *ملاحظات خاصة:* ${notes}
 ━━━━━━━━━━━━━━━━━━
-نرجو منكم تأكيد توافر الطاولة والرد شاكرين حسن تعاونكم.`;
+*تاريخ تسجيل الطلب:* ${bookingRecord.created_at}
+نرجو تأكيد توافر الطاولة والرد شاكرين حسن تعاونكم.`;
 
-      const waUrl = `https://wa.me/${cleanWa}?text=${encodeURIComponent(message)}`;
-      this.showToast('جاري تحويل طلبكم لتأكيد الحجز عبر واتساب...', 'success');
+      const waUrl = `https://wa.me/${targetWhatsApp}?text=${encodeURIComponent(message)}`;
+      this.showToast(`تم تسجيل الحجز رقم (${bookingRecord.id}) بنجاح! جاري فتح واتساب...`, 'success');
+
       setTimeout(() => {
         window.open(waUrl, '_blank');
         form.reset();
@@ -508,8 +545,8 @@ let SarayaApp = {
       return;
     }
 
-    const rest = this.data?.restaurant || SARAYA_CONFIG.defaultRestaurant;
-    const cleanWa = rest.whatsapp.replace(/[^0-9]/g, '');
+    const targetWhatsApp = "201027093535";
+    const restName = this.data?.restaurant?.name || "مطعم ومشويات السرايا جريل";
 
     let total = 0;
     const itemsList = this.cart.map((item, idx) => {
@@ -518,14 +555,14 @@ let SarayaApp = {
       return `${idx + 1}. *${item.name}* (${item.qty} × ${item.price} = ${sub} ${item.currency})`;
     }).join('\n');
 
-    const msg = `🍽 *طلب طعام خارجي / استلام - ${rest.name}*
+    const msg = `🍽 *طلب طعام خارجي / استلام - ${restName}*
 ━━━━━━━━━━━━━━━━━━
 ${itemsList}
 ━━━━━━━━━━━━━━━━━━
-💰 *المجموع الإجمالي:* ${total.toLocaleString()} ${rest.currency}
+💰 *المجموع الإجمالي:* ${total.toLocaleString()} ر.س
 📍 أرجو تأكيد موعد تجهيز الطلب والاستلام شاكرين لكم.`;
 
-    const waUrl = `https://wa.me/${cleanWa}?text=${encodeURIComponent(msg)}`;
+    const waUrl = `https://wa.me/${targetWhatsApp}?text=${encodeURIComponent(msg)}`;
     window.open(waUrl, '_blank');
   },
 
@@ -584,7 +621,7 @@ ${itemsList}
   },
 
   initQuickOrder() {
-    // Already linked via onclick in templates
+    // Linked via onclick
   },
 
   showToast(message, type = 'info') {
@@ -610,10 +647,8 @@ ${itemsList}
   }
 };
 
-// Global Exposure
 window.SarayaApp = SarayaApp;
 
-// Auto Start
 document.addEventListener('DOMContentLoaded', () => {
   SarayaApp.init();
 });
